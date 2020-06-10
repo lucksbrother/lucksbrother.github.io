@@ -285,21 +285,21 @@
                     <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
                         
 <div class="statis">
-    <span class="count"><a href="/">7</a></span>
+    <span class="count"><a href="/">8</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">3</a></span>
+    <span class="count"><a href="/categories">4</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">8</a></span>
+    <span class="count"><a href="/tags">10</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -315,21 +315,21 @@
                                 <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
                                     
 <div class="statis">
-    <span class="count"><a href="/">7</a></span>
+    <span class="count"><a href="/">8</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">3</a></span>
+    <span class="count"><a href="/categories">4</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">8</a></span>
+    <span class="count"><a href="/tags">10</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -463,7 +463,7 @@
         },
         xAxis: {
             type: 'category',
-            data: ["2019-04","2019-05","2019-06","2019-07","2019-08","2019-09","2019-10","2019-11","2019-12","2020-01","2020-02","2020-03","2020-04"]
+            data: ["2019-06","2019-07","2019-08","2019-09","2019-10","2019-11","2019-12","2020-01","2020-02","2020-03","2020-04","2020-05","2020-06"]
         },
         yAxis: {
             type: 'value',
@@ -473,7 +473,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,1,0,0,0,0,0,0,0,0,0,0,0],
+                data: [0,0,0,0,0,0,0,0,0,0,0,0,1],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -515,7 +515,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"大数据","value":2},{"name":"设计模式","value":3},{"name":"JAVA","value":1}],
+                data: [{"name":"大数据","value":2},{"name":"JAVA","value":1},{"name":"设计模式","value":3},{"name":"云原生","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -539,7 +539,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["设计模式","大数据","HBase","Hadoop","策略模式","分布式","定时任务","观察者模式"]
+                data: ["设计模式","大数据","HBase","Hadoop","分布式","定时任务","策略模式","观察者模式","云原生","十二要素"]
             }
         ],
         yAxis: [
@@ -552,7 +552,7 @@
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [3,2,1,1,1,1,1,1],
+                data: [3,2,1,1,1,1,1,1,1,1],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
@@ -594,12 +594,25 @@
             <div class="info center-align">
                 <a href="https://github.com/lucksbrother/robin-admin" class="icon"
                    style="background: linear-gradient(to bottom right, #66BB6A 0%, #81C784 100%)" target="_blank">
-                    <i class="fas fa-file-alt"></i>
+                    <i class="fas fa-fish"></i>
                 </a>
                 <div class="info-title">
                     <a href="https://github.com/lucksbrother/robin-admin" target="_blank">robin-admin</a>
                 </div>
                 <div class="info-desc">这是一个正在开发中的Security实战项目,通过老项目重构整理.后续会完成一套后台管理系统.</div>
+            </div>
+        </div>
+        
+        <div class="col s12 m6 l4" data-aos="fade-up">
+            <div class="info center-align">
+                <a href="https://github.com/lucksbrother/mail-center" class="icon"
+                   style="background: linear-gradient(to bottom right, #66BB6A 0%, #81C784 100%)" target="_blank">
+                    <i class="fas fa-spider"></i>
+                </a>
+                <div class="info-title">
+                    <a href="https://github.com/lucksbrother/mail-center" target="_blank">mail-center</a>
+                </div>
+                <div class="info-desc">这是一套可单独部署的邮件服务平台，可通过公开api及简单的鉴权认证将邮件已任务的形势添加到队列中，并根据定制进行消费，统一发送。</div>
             </div>
         </div>
         
@@ -712,18 +725,6 @@
             
             
             
-            <a href="/tags/策略模式/">
-                <span class="chip center-align waves-effect waves-light chip-default">策略模式</span>
-            </a>
-            
-            
-            
-            <a href="/tags/设计模式/">
-                <span class="chip center-align waves-effect waves-light chip-default">设计模式</span>
-            </a>
-            
-            
-            
             <a href="/tags/分布式/">
                 <span class="chip center-align waves-effect waves-light chip-default">分布式</span>
             </a>
@@ -736,8 +737,32 @@
             
             
             
+            <a href="/tags/策略模式/">
+                <span class="chip center-align waves-effect waves-light chip-default">策略模式</span>
+            </a>
+            
+            
+            
+            <a href="/tags/设计模式/">
+                <span class="chip center-align waves-effect waves-light chip-default">设计模式</span>
+            </a>
+            
+            
+            
             <a href="/tags/观察者模式/">
                 <span class="chip center-align waves-effect waves-light chip-default">观察者模式</span>
+            </a>
+            
+            
+            
+            <a href="/tags/云原生/">
+                <span class="chip center-align waves-effect waves-light chip-default">云原生</span>
+            </a>
+            
+            
+            
+            <a href="/tags/十二要素/">
+                <span class="chip center-align waves-effect waves-light chip-default">十二要素</span>
             </a>
             
             

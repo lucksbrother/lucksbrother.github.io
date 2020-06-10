@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="一起学分布式任务（上）, 幸运哥哥">
+    <meta name="keywords" content="云原生十二要素原则, 幸运哥哥">
     <meta name="description" content="jack of all trades And master most of it">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>一起学分布式任务（上） | 幸运哥哥</title>
+    <title>云原生十二要素原则 | 幸运哥哥</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -243,12 +243,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('medias/featureimages/2.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('medias/featureimages/3.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">一起学分布式任务（上）</h1>
+                    <h1 class="description center-align post-title">云原生十二要素原则</h1>
                 </div>
             </div>
         </div>
@@ -365,12 +365,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/分布式/">
-                                <span class="chip bg-color">分布式</span>
+                            <a href="/tags/云原生/">
+                                <span class="chip bg-color">云原生</span>
                             </a>
                         
-                            <a href="/tags/定时任务/">
-                                <span class="chip bg-color">定时任务</span>
+                            <a href="/tags/十二要素/">
+                                <span class="chip bg-color">十二要素</span>
                             </a>
                         
                     </div>
@@ -381,8 +381,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/JAVA/" class="post-category">
-                                JAVA
+                            <a href="/categories/云原生/" class="post-category">
+                                云原生
                             </a>
                         
                     </div>
@@ -394,7 +394,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-05-24
+                    2020-06-06
                 </div>
                 
 
@@ -411,60 +411,158 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="分布式任务经历"><a href="#分布式任务经历" class="headerlink" title="分布式任务经历"></a>分布式任务经历</h2><p>在这说说之间碰到的一些问题，项目是由分布式dubbo组件开发，每个单独应用模块都多少带有定时任务的需求。<br>一直想做一个公共的抽离业务的任务调度中心，也是缺少技术论证环节，遇到需求直接采用一些临时解决方案，其中不免遇到好多坑，好多BUG，有时将就，有时又困扰。</p>
-<p>经历1：第一次遇到相关问题就是多节点部署，定时任务重复问题。</p>
-<p>将就的解决方案：任务内容是根据时间判断状态，重复执行不会出现结果不一致的情况，没做处理，浪费一些性能。</p>
-<p>竞争的解决方案：采用锁的机制，利用redis缓存做排他锁，多节点资源竞争，竞争到的节点执行任务，实际上多节点只有一个节点执行任务，执行效率低，无法通过横向扩展。</p>
-<p>轮子的解决方案：在针对问题寻找一些方案时，有同事用过elastic-job，在部分项目上采用elastic-job方案解决。使用简单的配置方式，不支持动态任务调度，也不支持监控等功能，没有做过深的应用。</p>
-<p>经历2：遇到动态任务调度的需求，要求可按周期，或定期触发定时任务执行业务方法。</p>
-<p>临时的解决方案：每当生成一次任务请求，将其周期，参数等存入数据库，由一个定时任务业务：每分钟查询符合执行周期的任务记录，并将任务信息推送至消息队列，由其他消费者通过消费消息，达到业务定时执行的需求。无法部署多节点，任务与业务耦合，每当需要支持新的业务需重新部署任务中心。消息队列无法精准控制任务执行时间，有一定的延迟。</p>
-<h2 id="一些想法"><a href="#一些想法" class="headerlink" title="一些想法"></a>一些想法</h2><p>通过多个不同业务间的定时任务开发过程中发现，急需一个任务调度中心系统来解决这些问题，于是大胆的想了几种办法，必须抽离业务，只做任务调度，可以分布式集群部署，对任务监控，日志，动态启停，修改任务周期，自动检索可定时执行业务。</p>
-<p>任务调度，可以分布式集群部署，对任务动监控，日志，动态启停，修改任务周期，这些在看了Quartz框架后发现都可以完成。<br>于是就想如何解决抽离业务，自动检索可定时执行业务。项目用的是dubbo框架，service是支持多节点负载均衡的，是否可以采用api对应业务，由任务调度中心按周期执行api的调用来激活业务方法。或者有没有办法在dubbo的注册中心中自动扫描到支持任务调度的业务方法，对这种业务进行任务管理。带着这些问题，我开始寻找合适的解决方案，目前找到了一个方向，并做了一些简单的技术验证，发现这个方案还是可行的，特此写篇文章做下记录，xxl-job任务调度框架，下面对选型做下介绍，并且在后面几篇文章中对xxl-job进行详细的demo案例，以及最终如何解决我项目中的需求做下详细的分享。</p>
-<h2 id="为何选用-xxl-job"><a href="#为何选用-xxl-job" class="headerlink" title="为何选用 xxl-job"></a>为何选用 xxl-job</h2><p>最近项目上一直有分布式定时任务的需求，也是一边尝试着用自己的思路解决项目中的一些定时任务问题，一边寻找着更合适的方案，项目周期紧张，很难空出时间来做一些技术论证，选用xxl-job之前也是对quartz，elastic-job,spring-task做过一些了解和尝试。最终觉得还是xxl-job在多个方面更适合。</p>
-<p>首先对比一下上述几个定时任务框架的特征：<br>spring-task：<br>优点：原生于spring，不需要其他依赖和配置，直接使用注解即可启用，使用简单。<br>缺点：不支持分布式，集群，功能单一，无监控及管理。</p>
-<p>quartz：<br>优点：强大的任务调度框架，支持分布式，集群，任务可动态管理，功能丰富。<br>缺点：只提供监控、日志、调度的相关API操作，需要针对API二次开发。不支持任务失败重试。</p>
-<p>elastic-job：<br>优点：基于quartz框架开发，脱离mysql管理，采用zookeeper，提供任务调度平台，支持分片。<br>缺点：（可能不算缺点）文档不完善，案例不清晰，配置复杂，我是没看懂。</p>
-<p>xxl-job：<br>优点：基于quartz框架开发，提供任务调度平台，支持动态插入代码实现任务（多种语言，java，python等）。</p>
-<p>选用xxl-job，是因为实现较简单，功能满足，节省时间。（最缺的就是时间）</p>
-<h2 id="xxl-job-简介"><a href="#xxl-job-简介" class="headerlink" title="xxl-job 简介"></a>xxl-job 简介</h2><p>XXL-JOB是一个轻量级分布式任务调度平台，其核心设计目标是开发迅速、学习简单、轻量级、易扩展。现已开放源代码并接入多家公司线上产品线，开箱即用。</p>
-<h2 id="xxl-job-特性"><a href="#xxl-job-特性" class="headerlink" title="xxl-job 特性"></a>xxl-job 特性</h2><ul>
-<li>1、简单：支持通过Web页面对任务进行CRUD操作，操作简单，一分钟上手；</li>
-<li>2、动态：支持动态修改任务状态、启动/停止任务，以及终止运行中任务，即时生效；</li>
-<li>3、调度中心HA（中心式）：调度采用中心式设计，“调度中心”自研调度组件并支持集群部署，可保证调度中心HA；</li>
-<li>4、执行器HA（分布式）：任务分布式执行，任务”执行器”支持集群部署，可保证任务执行HA；</li>
-<li>5、注册中心: 执行器会周期性自动注册任务, 调度中心将会自动发现注册的任务并触发执行。同时，也支持手动录入执行器地址；</li>
-<li>6、弹性扩容缩容：一旦有新执行器机器上线或者下线，下次调度时将会重新分配任务；</li>
-<li>7、路由策略：执行器集群部署时提供丰富的路由策略，包括：第一个、最后一个、轮询、随机、一致性HASH、最不经常使用、最近最久未使用、故障转移、忙碌转移等；</li>
-<li>8、故障转移：任务路由策略选择”故障转移”情况下，如果执行器集群中某一台机器故障，将会自动Failover切换到一台正常的执行器发送调度请求。</li>
-<li>9、阻塞处理策略：调度过于密集执行器来不及处理时的处理策略，策略包括：单机串行（默认）、丢弃后续调度、覆盖之前调度；</li>
-<li>10、任务超时控制：支持自定义任务超时时间，任务运行超时将会主动中断任务；</li>
-<li>11、任务失败重试：支持自定义任务失败重试次数，当任务失败时将会按照预设的失败重试次数主动进行重试；其中分片任务支持分片粒度的失败重试；</li>
-<li>12、任务失败告警；默认提供邮件方式失败告警，同时预留扩展接口，可方便的扩展短信、钉钉等告警方式；</li>
-<li>13、分片广播任务：执行器集群部署时，任务路由策略选择”分片广播”情况下，一次任务调度将会广播触发集群中所有执行器执行一次任务，可根据分片参数开发分片任务；</li>
-<li>14、动态分片：分片广播任务以执行器为维度进行分片，支持动态扩容执行器集群从而动态增加分片数量，协同进行业务处理；在进行大数据量业务操作时可显著提升任务处理能力和速度。</li>
-<li>15、事件触发：除了”Cron方式”和”任务依赖方式”触发任务执行之外，支持基于事件的触发任务方式。调度中心提供触发任务单次执行的API服务，可根据业务事件灵活触发。</li>
-<li>16、任务进度监控：支持实时监控任务进度；</li>
-<li>17、Rolling实时日志：支持在线查看调度结果，并且支持以Rolling方式实时查看执行器输出的完整的执行日志；</li>
-<li>18、GLUE：提供Web IDE，支持在线开发任务逻辑代码，动态发布，实时编译生效，省略部署上线的过程。支持30个版本的历史版本回溯。</li>
-<li>19、脚本任务：支持以GLUE模式开发和运行脚本任务，包括Shell、Python、NodeJS、PHP、PowerShell等类型脚本;</li>
-<li>20、命令行任务：原生提供通用命令行任务Handler（Bean任务，”CommandJobHandler”）；业务方只需要提供命令行即可；</li>
-<li>21、任务依赖：支持配置子任务依赖，当父任务执行结束且执行成功后将会主动触发一次子任务的执行, 多个子任务用逗号分隔；</li>
-<li>22、一致性：“调度中心”通过DB锁保证集群分布式调度的一致性, 一次任务调度只会触发一次执行；</li>
-<li>23、自定义任务参数：支持在线配置调度任务入参，即时生效；</li>
-<li>24、调度线程池：调度系统多线程触发调度运行，确保调度精确执行，不被堵塞；</li>
-<li>25、数据加密：调度中心和执行器之间的通讯进行数据加密，提升调度信息安全性；</li>
-<li>26、邮件报警：任务失败时支持邮件报警，支持配置多邮件地址群发报警邮件；</li>
-<li>27、推送maven中央仓库: 将会把最新稳定版推送到maven中央仓库, 方便用户接入和使用;</li>
-<li>28、运行报表：支持实时查看运行数据，如任务数量、调度次数、执行器数量等；以及调度报表，如调度日期分布图，调度成功分布图等；</li>
-<li>29、全异步：任务调度流程全异步化设计实现，如异步调度、异步运行、异步回调等，有效对密集调度进行流量削峰，理论上支持任意时长任务的运行；</li>
-<li>30、跨平台：原生提供通用HTTP任务Handler（Bean任务，”HttpJobHandler”）；业务方只需要提供HTTP链接即可，不限制语言、平台；</li>
-<li>31、国际化：调度中心支持国际化设置，提供中文、英文两种可选语言，默认为中文；</li>
-<li>32、容器化：提供官方docker镜像，并实时更新推送dockerhub，进一步实现产品开箱即用；</li>
-<li>33、线程池隔离：调度线程池进行隔离拆分，慢任务自动降级进入”Slow”线程池，避免耗尽调度线程，提高系统稳定性；；</li>
-<li>34、用户管理：支持在线管理系统用户，存在管理员、普通用户两种角色；</li>
-<li>35、权限控制：执行器维度进行权限控制，管理员拥有全量权限，普通用户需要分配执行器权限后才允许相关操作；</li>
+                <h3 id="聊"><a href="#聊" class="headerlink" title="聊"></a>聊</h3><blockquote>
+<p>刚刚更换了新的工作环境，第一周就赶上公司的技术公开课《云时代技术人员的颠覆与突破》，课程提到了《云原生》，恰好自己看过一本云原生的书籍，由于一直没有时间对书中讲到的知识进行应用实践，渐渐的就放下了，这次借助技术公开课的学习，及新环境的平台，我也希望自己将一些书籍知识不仅仅放在书本和脑袋中，而是将它们以实践的方式写出来，并尽可能的应用于工作中，也希望能给其他开发者带来一些共鸣，本文介绍一下《云原生》的核心理念，十二要素原则，该原则不限于语言实现，但本文将其实现构建于SpringBoot框架中。</p>
+</blockquote>
+<h3 id="十二要素原则"><a href="#十二要素原则" class="headerlink" title="十二要素原则"></a>十二要素原则</h3><p>十二要素原则是由Heroku云平台的创建者所编写的一套应用程序开发理论。Twelve-Factor App 是一个由Heroku联合创始人Adam Wiggins 创建的网站，用于描述利用现代云平台来实际构建Saas应用程序的一份宣言。<br>[网站地址]: <a href="https://www.12factor.net/zh_cn/" target="_blank" rel="noopener">https://www.12factor.net/zh_cn/</a><br>本篇我将用Java开发应用，套用十二要素原则的实践进行介绍。</p>
+<h4 id="十二要素程序的实践"><a href="#十二要素程序的实践" class="headerlink" title="十二要素程序的实践"></a>十二要素程序的实践</h4><table>
+<thead>
+<tr>
+<th>十二要素</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>代码库</td>
+<td>一份版本控制下的基准代码库，多份部署</td>
+</tr>
+<tr>
+<td>依赖</td>
+<td>显式声明和隔离依赖关系</td>
+</tr>
+<tr>
+<td>配置</td>
+<td>在环境中存储配置</td>
+</tr>
+<tr>
+<td>后端服务</td>
+<td>把后端服务当作附加资源</td>
+</tr>
+<tr>
+<td>构建，发布，运行</td>
+<td>严格分离构建和运行阶段</td>
+</tr>
+<tr>
+<td>进程</td>
+<td>将应用程序作为一个活多个无状态进程执行</td>
+</tr>
+<tr>
+<td>端口绑定</td>
+<td>通过端口绑定暴露服务</td>
+</tr>
+<tr>
+<td>并发</td>
+<td>通过进程模型进行扩展</td>
+</tr>
+<tr>
+<td>易处理</td>
+<td>通过快速启动和正常关机来最大限度地提高健壮性</td>
+</tr>
+<tr>
+<td>开发/生产环境一致</td>
+<td>尽可能保持开发、预发布和生产环境的配置一致</td>
+</tr>
+<tr>
+<td>日志</td>
+<td>将日志视为事件流</td>
+</tr>
+<tr>
+<td>管理进程</td>
+<td>将管理任务作为一次性进程运行</td>
+</tr>
+</tbody>
+</table>
+<h4 id="代码库"><a href="#代码库" class="headerlink" title="代码库"></a>代码库</h4><blockquote>
+<p>一份版本控制下的基准代码库，多份部署</p>
+</blockquote>
+<p>应用程序的源代码仓库应该只包含一个应用程序，并列出它所依赖的资源清单。对于不同的环境，我们应该不需要重新编译或打包应用程序。每个环境中特有的设置应该与代码无关。</p>
+<h5 id="SpringBoot-实现"><a href="#SpringBoot-实现" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例"><a href="#反例" class="headerlink" title="反例"></a>反例</h5><h5 id="正例"><a href="#正例" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><blockquote>
+<p>显式声明和隔离依赖关系</p>
+</blockquote>
+<p>应该显式地声明应用程序的依赖关系，并且可以通过依赖项管理软件（如Apache Maven）的仓库，下载任意或所有的依赖关系。</p>
+<p>满足十二要素的程序，不应该依赖于底层系统级包才能够运行。应用程序的所有依赖关系都应该被明确地声明在清淡文件中，该文件清晰地列出了每个引用的详细信息。</p>
+<h5 id="SpringBoot-实现-1"><a href="#SpringBoot-实现-1" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-1"><a href="#反例-1" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-1"><a href="#正例-1" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><blockquote>
+<p>在环境中存储配置</p>
+</blockquote>
+<p>应用程序的代码应与配置严格分开。应用程序的配置应由各自环境管理。</p>
+<p>所依赖服务的连接字符串、密码或者主机名等，应该存储为环境变量，这样易于修改，无需部署配置文件。</p>
+<p>应用程序在环境之间的任何差异，应该都认为是一种环境配置，并且应该存储在环境中，而不是应用程序中。</p>
+<h5 id="SpringBoot-实现-2"><a href="#SpringBoot-实现-2" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-2"><a href="#反例-2" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-2"><a href="#正例-2" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="后端服务"><a href="#后端服务" class="headerlink" title="后端服务"></a>后端服务</h4><blockquote>
+<p>把后端服务当作附加资源</p>
+</blockquote>
+<p>后端服务是十二要素程序正常运行所需要依赖的任何服务。举例说明，后端服务包括数据库，API驱动的RESTfulWeb服务，SMTP服务器或FTP服务器。</p>
+<p>后端服务被认为是应用程序的某种资源。这些资源在运行期间被绑定到应用程序上。十二要素程序应该在无须代码改动的前提下，可以从一个测试环境中的嵌入式SQL数据库，切换到预发布环境下的一个独立MySQL数据库。</p>
+<h5 id="SpringBoot-实现-3"><a href="#SpringBoot-实现-3" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-3"><a href="#反例-3" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-3"><a href="#正例-3" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="构建、发布、运行"><a href="#构建、发布、运行" class="headerlink" title="构建、发布、运行"></a>构建、发布、运行</h4><blockquote>
+<p>严格分离构建和运行阶段</p>
+</blockquote>
+<p>十二要素程序严格分离了构建、发布、和运行几个阶段。</p>
+<ul>
+<li>构建阶段<ul>
+<li>构建阶段将应用程序的源代码编译或打包到一个程序包中。创建的包被称为一次构建物。</li>
 </ul>
-
+</li>
+<li>发布阶段<ul>
+<li>发布阶段需要将某次构建与配置相结合。随后，创建出的发布文件应该可以在某个执行环境中运行。无论是使用版本号还是时间戳，每个版本应该有一个唯一的标识符。每个发布文件都应该被添加到一个目录中，可以通过发布管理工具回滚到之前的发布版本</li>
+</ul>
+</li>
+<li>运行阶段<ul>
+<li>运行阶段是指在可执行环境中运行一个指定的应用版本。</li>
+</ul>
+</li>
+</ul>
+<p>通过将这些阶段分成独立的流程，在运行时就完全不可能去更改任何程序代码。更改应用程序代码的唯一方法，就是通过构建阶段来创建一个新的版本，或者回滚到之前部署的某个版本。</p>
+<h5 id="SpringBoot-实现-4"><a href="#SpringBoot-实现-4" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-4"><a href="#反例-4" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-4"><a href="#正例-4" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><blockquote>
+<p>将应用程序作为一个或多个无状态进程执行</p>
+</blockquote>
+<p>十二要素程序应该是一种无共享、无状态的架构。应用程序可以依赖的唯一持久化元素是后端服务。提供持久化的后端服务包括数据库或对象存储。应用程序运行时需要的所有资源都应该作为后端服务。无论应用程序是否是无状态的，都需要进行测试，保证应用程序的执行环节在关闭或启动时都不会有任何数据丢失发生。</p>
+<p>十二要素程序不应该在执行环境中的本地文件系统上存储任何有关的状态信息。</p>
+<h5 id="SpringBoot-实现-5"><a href="#SpringBoot-实现-5" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-5"><a href="#反例-5" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-5"><a href="#正例-5" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="端口绑定"><a href="#端口绑定" class="headerlink" title="端口绑定"></a>端口绑定</h4><blockquote>
+<p>通过端口绑定暴露服务</p>
+</blockquote>
+<p>十二要素程序本身是完全独立的，这表示它们不需要在运行时引入一个web服务器，就可以提供对外的Web服务能力。每个应用程序通过将自身HTTP端口绑定到执行环境中，来对外公开自己的访问。在部署期间，对于来自公开主机的请求，路由层灰将请求路由到应用程序的执行环境和绑定的HTTP端口来进行处理。</p>
+<h5 id="SpringBoot-实现-6"><a href="#SpringBoot-实现-6" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-6"><a href="#反例-6" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-6"><a href="#正例-6" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h4><blockquote>
+<p>通过进程模型进行扩展</p>
+</blockquote>
+<p>在需要时，应用程序应该能够通过增加进程或线程来并行执行工作。JVM应用程序能够使用多个线程自动处理进程中的并发情况。</p>
+<p>根据类型不同，应用程序应该能够同时分配多个工作。目前，JVM的大多数应用程序框架都内置了这个能力。对于一些需要长时间运行的数据处理工作，你应该使用执行器，异步的将多个并发工作分配给可用的线程池。</p>
+<p>十二要素程序还必须能够水平扩展，并且能够将多个并发工作分配给可用的线程池。</p>
+<h5 id="SpringBoot-实现-7"><a href="#SpringBoot-实现-7" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-7"><a href="#反例-7" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-7"><a href="#正例-7" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="易处理"><a href="#易处理" class="headerlink" title="易处理"></a>易处理</h4><blockquote>
+<p>通过快速启动和正常关机来最大限度的提高健壮性</p>
+</blockquote>
+<p>十二要素程序需要被设计成易处理的。应用程序应该可以在执行过程中的任意时刻停止，并且能够优雅地释放进程。</p>
+<p>应用程序的进程应尽可能地减少启动时间。应用程序应该在几秒钟内启动，并且开始能够处理接收的请求。短暂的启动时间会降低应用程序进行水平扩展时花费的时间。</p>
+<p>如果应用程序的进程启动花费太长时间，可能会在高峰时间导致所有的应用程序实例过载，从而降低系统整体的可用性。通过将应用程序的启动时间减少到几秒钟，新的实例能够更快速地响应不可预测的流量峰值，而不会降低系统的可用性或者性能。</p>
+<h5 id="SpringBoot-实现-8"><a href="#SpringBoot-实现-8" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-8"><a href="#反例-8" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-8"><a href="#正例-8" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="开发-生产环境一致"><a href="#开发-生产环境一致" class="headerlink" title="开发/生产环境一致"></a>开发/生产环境一致</h4><blockquote>
+<p>尽可能保持开发、预发布和生产环境的配置一致</p>
+</blockquote>
+<p>十二要素程序应防止开发和生产环境之间存在差异。有三种类型的差异需要注意。</p>
+<p>时间差异</p>
+<p>开发人员希望开发的变更代码能够快速部署到生产环境中。</p>
+<p>人员差异</p>
+<p>更改代码的开发人员应该密切关注生产环境的部署，并在部署后密切监控应用程序的行为。</p>
+<p>工具差异</p>
+<p>每个环境应该具备相同的技术和框架，避免因为一些细小的意外差异导致不一致的行为出现。</p>
+<h5 id="SpringBoot-实现-9"><a href="#SpringBoot-实现-9" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-9"><a href="#反例-9" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-9"><a href="#正例-9" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h4><blockquote>
+<p>将日志视为事件流</p>
+</blockquote>
+<p>十二要素程序将写日志看作到标准输出的一个有序事件流。应用程序不应该负责管理自身日志文件的存储。应用程序日志输出的收集和归档工作应该由运行环境来完成。</p>
+<h5 id="SpringBoot-实现-10"><a href="#SpringBoot-实现-10" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-10"><a href="#反例-10" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-10"><a href="#正例-10" class="headerlink" title="正例"></a>正例</h5><hr>
+<h4 id="管理进程"><a href="#管理进程" class="headerlink" title="管理进程"></a>管理进程</h4><blockquote>
+<p>将管理任务作为一次性进程运行</p>
+</blockquote>
+<p>有时，应用程序的开发人员需要运行一次性的管理任务。这类任务可能包括数据库迁移或运行已提交到源代码仓库中的一次性脚本。这些都被认为是管理进程。管理进程应该在应用程序的执行环境中运行，并将脚本提交到代码仓库中，以便保持各个环境之间的一致性。</p>
+<h5 id="SpringBoot-实现-11"><a href="#SpringBoot-实现-11" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-11"><a href="#反例-11" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-11"><a href="#正例-11" class="headerlink" title="正例"></a>正例</h5>
             </div>
             <hr/>
 
@@ -489,7 +587,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lucksbrother.github.io/2019/05/24/yi-qi-xue-fen-bu-shi-ren-wu/">https://lucksbrother.github.io/2019/05/24/yi-qi-xue-fen-bu-shi-ren-wu/</a>
+                    <a href="https://lucksbrother.github.io/2020/06/06/yun-yuan-sheng-shi-er-yao-su-yuan-ze/">https://lucksbrother.github.io/2020/06/06/yun-yuan-sheng-shi-er-yao-su-yuan-ze/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -527,12 +625,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/分布式/">
-                                    <span class="chip bg-color">分布式</span>
+                                <a href="/tags/云原生/">
+                                    <span class="chip bg-color">云原生</span>
                                 </a>
                             
-                                <a href="/tags/定时任务/">
-                                    <span class="chip bg-color">定时任务</span>
+                                <a href="/tags/十二要素/">
+                                    <span class="chip bg-color">十二要素</span>
                                 </a>
                             
                         </div>
@@ -720,9 +818,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/06/06/yun-yuan-sheng-shi-er-yao-su-yuan-ze/">
                     <div class="card-image">
@@ -741,9 +840,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -756,6 +855,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -778,33 +878,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/10/31/hbase-wei-fen-bu-shi-ji-qun-da-jian/">
+                <a href="/2019/05/24/yi-qi-xue-fen-bu-shi-ren-wu/">
                     <div class="card-image">
                         
                         
-                        <img src="medias/featureimages/4.jpg" class="responsive-img" alt="HBase伪分布式集群搭建">
+                        <img src="medias/featureimages/2.jpg" class="responsive-img" alt="一起学分布式任务（上）">
                         
-                        <span class="card-title">HBase伪分布式集群搭建</span>
+                        <span class="card-title">一起学分布式任务（上）</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            本篇在上篇的Hadoop伪分布式集群的基础上继续搭建HBase伪分布式集群
-5、安装zookeeperzookeeper版本：zookeeper-3.4.11.tar.gz
-安装zookeeper的原因：hbase其实自带一个可用的zook
+                            分布式任务经历在这说说之间碰到的一些问题，项目是由分布式dubbo组件开发，每个单独应用模块都多少带有定时任务的需求。一直想做一个公共的抽离业务的任务调度中心，也是缺少技术论证环节，遇到需求直接采用一些临时解决方案，其中不免遇到好多坑，好多
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-10-31
+                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-24
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/大数据/" class="post-category">
-                                    大数据
+                            <a href="/categories/JAVA/" class="post-category">
+                                    JAVA
                                 </a>
                             
                             
@@ -814,12 +912,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/HBase/">
-                        <span class="chip bg-color">HBase</span>
+                    <a href="/tags/分布式/">
+                        <span class="chip bg-color">分布式</span>
                     </a>
                     
-                    <a href="/tags/大数据/">
-                        <span class="chip bg-color">大数据</span>
+                    <a href="/tags/定时任务/">
+                        <span class="chip bg-color">定时任务</span>
                     </a>
                     
                 </div>
