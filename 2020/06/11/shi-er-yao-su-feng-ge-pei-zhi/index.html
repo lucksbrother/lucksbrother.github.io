@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="一起学观察者模式, 幸运哥哥">
+    <meta name="keywords" content="十二要素风格配置, 幸运哥哥">
     <meta name="description" content="jack of all trades And master most of it">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>一起学观察者模式 | 幸运哥哥</title>
+    <title>十二要素风格配置 | 幸运哥哥</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -248,7 +248,7 @@
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">一起学观察者模式</h1>
+                    <h1 class="description center-align post-title">十二要素风格配置</h1>
                 </div>
             </div>
         </div>
@@ -365,12 +365,16 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/设计模式/">
-                                <span class="chip bg-color">设计模式</span>
+                            <a href="/tags/云原生/">
+                                <span class="chip bg-color">云原生</span>
                             </a>
                         
-                            <a href="/tags/观察者模式/">
-                                <span class="chip bg-color">观察者模式</span>
+                            <a href="/tags/十二要素原则/">
+                                <span class="chip bg-color">十二要素原则</span>
+                            </a>
+                        
+                            <a href="/tags/配置/">
+                                <span class="chip bg-color">配置</span>
                             </a>
                         
                     </div>
@@ -381,8 +385,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/设计模式/" class="post-category">
-                                设计模式
+                            <a href="/categories/云原生/" class="post-category">
+                                云原生
                             </a>
                         
                     </div>
@@ -394,7 +398,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2018-05-03
+                    2020-06-11
                 </div>
                 
 
@@ -411,180 +415,29 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="聊"><a href="#聊" class="headerlink" title="聊"></a>聊</h2><blockquote>
-<p>这期我们一起学学观察者模式,《一起学策咯模式》是第一次写文章,总结了一下经验,感觉就一个字【<strong>太罗嗦</strong>】,所以这次来点新鲜的,简单的,不同以往的,超级棒的,无与伦比的,让你们读完就和我一样学会观察者模式的，并且还没看完就想点赞的。开始吧。</p>
+                <h3 id="聊"><a href="#聊" class="headerlink" title="聊"></a>聊</h3><p>随着《云原生》的学习，我计划同步开启一项开源项目，来将所学实践到项目中去，先简单介绍一下CNAdmin，全称Cloud Native Admin，云原生后台管理系统，后端使用SpringBoot 2.3.0 ，并且尽可能少的加载其他依赖。</p>
+<p>目的是重点体现出SpringBoot 对云原生的构建，业务方面我借鉴了几个admin类的项目，后续只做简单功能实现，所以这不是一个功能全面的后台管理系统，开发期间所有代码不涉及任何开源协议。</p>
+<p>只看不练恐怕真正用起来的时候还是会遇到很多坑，就比如这个项目，虽然已经创建过很多次了，但在构建过程中还是会遇到各式各样的小坑，话不多说开整。</p>
+<h3 id="记"><a href="#记" class="headerlink" title="记"></a>记</h3><blockquote>
+<p>十二要素程序中的配置要求</p>
 </blockquote>
-<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><p>设计一个信用卡提醒功能的案例,上学就被信用卡坑过的我（<em>完全不知道办理了一张信用卡，并进行了消费，也没有还款提醒，还超期未还年费，被银行无情的拉入了黑名单中，导致许多年都生活在可怕的信用卡阴影中</em>）,在不久前又鼓起了勇气办了一张信用卡,这次办卡经历还算不错,在开通时就选择了账单提醒功能,可以通过邮件、短信、微信公众号、挂号信等形式通知我，这次我们就用观察者模式实现一个简单的信用卡提醒功能。</p>
-<p>假定我们已经开通信用卡，并且已有一个可以收到信用卡消费消息的类，完成一个可以任意选择提醒方式，并在进行消费后用多种方式同时通知本人消费情况。有兴趣可以自行实现一下再来对比对比我的实现。</p>
-<p>设：<br>银行消息类{ 获得消费金额();获得消费场所();获得消费时间();消费通知方法();}<br>可以获得信用卡的每一笔消费金额及消费场所和时间.</p>
-<p>短信通知类{通知更新方法();显示方法()}<br>微信通知类{通知更新方法();显示方法()}<br>邮件通知类{通知更新方法();显示方法()}</p>
-<p>当银行获得模拟消费操作后,通过调用消费通知方法(),完成消费的通知,消费通知类收到通知后,各自调用显示方法()提醒消费信息;</p>
-<p>将此系统设计成可扩展的,例如通知类可以新增,比如挂号信方式,电话通知方式,例如通知类型可随意开关,我只想要短信和邮件通知,并不需要微信,之后我又开通了微信,并想打开微信通知.诸如此类操作.</p>
-<p><img src="/uploads/post/capter2.png" alt="信用卡一"></p>
-<h2 id="做"><a href="#做" class="headerlink" title="做"></a>做</h2><p>创建银行消息类:BankMessage</p>
-<pre><code>class BankMessage extends Observable {
-
-    private Float consumptionAmount;
-    private String consumptionAddress;
-    private Date consumptionDate;
-
-    //通知方法
-    private void consumptionNotify() {
-        //改变标记
-        setChanged();
-        //通知观察者,参数为this
-        notifyObservers(this);
-    }
-
-    //模拟消费方法
-    void setConsumptionAction(Float consumptionAmount, String consumptionAddress, Date consumptionDate){
-        this.consumptionAddress = consumptionAddress;
-        this.consumptionAmount = consumptionAmount;
-        this.consumptionDate = consumptionDate;
-        consumptionNotify();
-    }
-
-    Float getConsumptionAmount() {
-        return consumptionAmount;
-    }
-
-    String getConsumptionAddress() {
-        return consumptionAddress;
-    }
-
-    Date getConsumptionDate() {
-        return consumptionDate;
-    }
-
-}
-</code></pre><p>创建消费通知接口:ConsumptionNotify</p>
-<pre><code>public interface ConsumptionNotify {
-    void display();
-}
-</code></pre><p>创建邮件通知类:MailNotify</p>
-<pre><code>public class MailNotify implements Observer, ConsumptionNotify {
-    private Observable observable;
-
-    private Float consumptionAmount;
-    private String consumptionAddress;
-    private Date consumptionDate;
-
-    public MailNotify(Observable observable) {
-        this.observable = observable;
-        observable.addObserver(this);
-    }
-
-    @Override
-    public void display() {
-        //模拟邮件发送
-        System.out.println(&quot;邮件消息:&quot; + consumptionDate + &quot;时,您在&quot; +consumptionAddress+&quot;消费了&quot;+consumptionAmount+&quot;元人民币&quot;);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (o instanceof BankMessage) {
-            BankMessage bankMessage = (BankMessage) o;
-            //可自定义通知条件：达到10元以上才启用邮件形式
-            if (bankMessage.getConsumptionAmount() &gt; 10) {
-                this.consumptionAmount = bankMessage.getConsumptionAmount();
-                this.consumptionAddress = bankMessage.getConsumptionAddress();
-                this.consumptionDate = bankMessage.getConsumptionDate();
-                display();
-            }
-        }
-    }
-}
-</code></pre><p>创建短信通知类:SMSNotify</p>
-<pre><code>public class SMSNotify implements Observer, ConsumptionNotify {
-
-    private Observable observable;
-
-    private Float consumptionAmount;
-    private String consumptionAddress;
-    private Date consumptionDate;
-
-    public SMSNotify(Observable observable) {
-        this.observable = observable;
-        observable.addObserver(this);
-    }
-
-    @Override
-    public void display() {
-        System.out.println(&quot;短信消息:&quot; + consumptionDate + &quot;时,您在&quot; +consumptionAddress+&quot;消费了&quot;+consumptionAmount+&quot;元人民币&quot;);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (o instanceof BankMessage) {
-            BankMessage bankMessage = (BankMessage) o;
-            this.consumptionAmount = bankMessage.getConsumptionAmount();
-            this.consumptionAddress = bankMessage.getConsumptionAddress();
-            this.consumptionDate = bankMessage.getConsumptionDate();
-            display();
-        }
-    }
-}
-</code></pre><p>创建微信通知类:WechatNotify</p>
-<pre><code>public class WechatNotify implements Observer, ConsumptionNotify {
-
-    private Observable observable;
-
-    private Float consumptionAmount;
-    private String consumptionAddress;
-    private Date consumptionDate;
-
-    public WechatNotify(Observable observable) {
-        this.observable = observable;
-        observable.addObserver(this);
-    }
-
-    @Override
-    public void display() {
-        //模拟邮件发送
-        System.out.println(&quot;微信消息:&quot; + consumptionDate + &quot;时,您在&quot; +consumptionAddress+&quot;消费了&quot;+consumptionAmount+&quot;元人民币&quot;);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (o instanceof BankMessage) {
-            BankMessage bankMessage = (BankMessage) o;
-            this.consumptionAmount = bankMessage.getConsumptionAmount();
-            this.consumptionAddress = bankMessage.getConsumptionAddress();
-            this.consumptionDate = bankMessage.getConsumptionDate();
-            display();
-        }
-    }
-
-}
-</code></pre><p>创建测试方法:TestMain</p>
-<pre><code>public class TestMain {
-
-    public static void main(String[] args) {
-        BankMessage data = new BankMessage();
-
-        SMSNotify smsNotify = new SMSNotify(data);
-        MailNotify mailNotify = new MailNotify(data);
-        WechatNotify wechatNotify = new WechatNotify(data);
-
-        data.setConsumptionAction(5.5F, &quot;超市&quot;, new Date());
-        data.setConsumptionAction(15.5F, &quot;餐厅&quot;, new Date());
-        data.deleteObserver(mailNotify);
-        data.setConsumptionAction(55.5F, &quot;旅店&quot;, new Date());
-
-    }
-}
-</code></pre><p>通过运行测试方法即可看到结果,一个简单的观察者模式案例完成啦.</p>
-<p><a href="https://github.com/lucksbrother/studyDesignPattern" target="_blank" rel="noopener">代码下载地址</a></p>
-<h2 id="记"><a href="#记" class="headerlink" title="记"></a>记</h2><ul>
-<li><strong>设计原则：独立出应用中可能需要变化部分，不要和那些不需要变化的代码混在一起。</strong></li>
-<li><strong>设计原则：针对接口编程，而不是针对实现编程</strong></li>
-<li><strong>设计原则：多用组合，少用继承</strong></li>
-<li><strong>设计原则：为了交互对象之间的松耦合设计而努力</strong></li>
-</ul>
-<p><strong><font size="5">观察者模式</font></strong>定义了对象之间的一对多依赖,这样一来,当一个对象改变状态时,它的所有依赖者都会收到通知并自动更新.</p>
-<p><strong>Observable类</strong>:java.util 包提供的观察者模式主题父类<br>可观察者继承后,提供一些添加删除观察者的方法.</p>
-<p><strong>Observer接口</strong>:接口定义了”推”或”拉”数据的方法,实现接口update方法,可任意自定义获取到的数据处理方式.</p>
-<h2 id="实"><a href="#实" class="headerlink" title="实"></a>实</h2><p>学习此设计模式后我第一个想到的实际应用就是之前做过的一个程序,对同类设备进行不同的检测,被检测设备的数量可能随时变化,可以定义成可观察类,并且定时进行设备更新,数量变化后,通知不同类型的检测类,分别进行检测,并且可随时控制某一类检测的开关.</p>
+<ol>
+<li><p>程序的代码应与配置严格分开。</p>
+</li>
+<li><p>程序的配置应由各自环境管理。</p>
+</li>
+<li><p>所依赖服务的信息应存储为环境变量，易于修改，无须部署配置文件。</p>
+</li>
+<li><p>应用程序在环境之间的任何差异，都认为是一种环境配置，应存储在环境中。</p>
+</li>
+</ol>
+<p>根据上述要求，以SpringBoot项目为例，第一点比较容易而且大多数项目已经这么实践了，例如查看一下自己的项目是否都有一个resource文件夹，并且分别存有dev、test、prod等环境配置。</p>
+<p><img src="/uploads/post/config1.png" alt="config1" style="zoom: 50%;"></p>
+<p>这就是做到了代码与配置分开并且区分了不同环境的配置，但仍然不满足十二要素的2、3、4条（后续会详细说明），在看看不符合的例子，是否代码中有将mysql、redis、oss又或者某openapi的key硬编码到了代码中。</p>
+<p><img src="/uploads/post/config2.png" alt="config2"></p>
+<p>如果有这些都是不利于管理和维护的。比如说，要更换一个简单的配置，必须重新提交代码，打包，发布。</p>
+<p>开篇的两个小例子估计大多数人都会经常在项目中遇到过。我们现在讨论一下第二点【程序的配置应由各自环境管理】，还是先举一个常见的例子，接着图一的模式举例，像这种区分环境运行的配置，虽然可以在不同的环境指定不同的启动参数来控制加载不同的环境配置，但同样会遇到类似于这样的问题，你是否在项目中遇到过开发一个新功能，在开发环境增添了配置项而忘记在测试或预发布甚至生产环境中忘记配置，亦或者有几个特殊的参数只有开发环境用到而其他环境缺不必使用，即时代码和配置已经做了分开处理，同样也会导致一些因环境差异或者配置不同而产生的故障。而解决此类故障，还是要重新修改代码配置，提交，审核，打包，发布。</p>
+<p>再来看一下应如何理解配置应由各自环境管理，其目的是让程序本身一次编译，来保障不同环境下运行的是同一套程序，不会因为环境不同而无法复现某个bug或其他差异。这么做还有一个好处是当环境自己管理配置时，可以更安全的保护资源的配置，假设代码意外泄漏，配置文件中的明文密码等信息，改为了变量，而真正有效的信息却放在了环境中管理。再或者你是否碰到过一套产品，部署给不同的客户，都是生产环境，因为客户不同，所以配置信息也不一样，但需要频繁修改配置，打包，上传，部署</p>
 
             </div>
             <hr/>
@@ -610,7 +463,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lucksbrother.github.io/2018/05/03/yi-qi-xue-guan-cha-zhe-mo-shi/">https://lucksbrother.github.io/2018/05/03/yi-qi-xue-guan-cha-zhe-mo-shi/</a>
+                    <a href="https://lucksbrother.github.io/2020/06/11/shi-er-yao-su-feng-ge-pei-zhi/">https://lucksbrother.github.io/2020/06/11/shi-er-yao-su-feng-ge-pei-zhi/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -648,12 +501,16 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/设计模式/">
-                                    <span class="chip bg-color">设计模式</span>
+                                <a href="/tags/云原生/">
+                                    <span class="chip bg-color">云原生</span>
                                 </a>
                             
-                                <a href="/tags/观察者模式/">
-                                    <span class="chip bg-color">观察者模式</span>
+                                <a href="/tags/十二要素原则/">
+                                    <span class="chip bg-color">十二要素原则</span>
+                                </a>
+                            
+                                <a href="/tags/配置/">
+                                    <span class="chip bg-color">配置</span>
                                 </a>
                             
                         </div>
@@ -845,37 +702,30 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2018/10/30/hadoop-wei-fen-bu-shi-ji-qun-da-jian/">
+                <a href="/2020/07/02/ni-huan-zai-yong-autowired-ma/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="hadoop伪分布式集群搭建">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="你还在用@Autowired吗？">
                         
-                        <span class="card-title">hadoop伪分布式集群搭建</span>
+                        <span class="card-title">你还在用@Autowired吗？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、安装linux系统我采用虚拟机的方式安装了fedora27 server系统
-安装过程略，安装完毕后更新系统
-&gt;dnf update -y
-&gt;dnf install -y vim
-注意：文中所用命令为【&gt;】开头，vim
+                            聊看标题是不是吓一跳，用了好多年的@Autowired用错了吗？没那么夸张，本篇仅仅是讨论一下我们Spring中最常用的依赖注入方式，目前注入方式有三种，分别是：构造函数注入、方法注入、属性注入。我们来看一小段代码
+public class
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2018-10-30
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-07-02
                         </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/大数据/" class="post-category">
-                                    大数据
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Robin
                             
                         </span>
                     </div>
@@ -883,12 +733,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Hadoop/">
-                        <span class="chip bg-color">Hadoop</span>
+                    <a href="/tags/Spring/">
+                        <span class="chip bg-color">Spring</span>
                     </a>
                     
-                    <a href="/tags/大数据/">
-                        <span class="chip bg-color">大数据</span>
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>
@@ -902,31 +752,32 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/04/22/yi-qi-xue-she-ji-mo-shi/">
+                <a href="/2020/06/06/yun-yuan-sheng-shi-er-yao-su-yuan-ze/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="一起学设计模式">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="云原生十二要素原则">
                         
-                        <span class="card-title">一起学设计模式</span>
+                        <span class="card-title">云原生十二要素原则</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            聊&emsp;&emsp;这是我写的第一篇技术类专题《一起学设计模式》，因为没什么写作经验，在用什么样的方式来写文章纠结了一上午，也搜了很多如何写好一篇技术文章之类的教程，最终还是没有领悟（这里应该有个尴尬的表情），我打算用专题加章节分离的
+                            聊
+刚刚更换了新的工作环境，第一周就赶上公司的技术公开课《云时代技术人员的颠覆与突破》，课程提到了《云原生》，恰好自己看过一本云原生的书籍，由于一直没有时间对书中讲到的知识进行应用实践，渐渐的就放下了，这次借助技术公开课的学习，及新环境的平
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-06
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/设计模式/" class="post-category">
-                                    设计模式
+                            <a href="/categories/云原生/" class="post-category">
+                                    云原生
                                 </a>
                             
                             
@@ -936,8 +787,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/设计模式/">
-                        <span class="chip bg-color">设计模式</span>
+                    <a href="/tags/云原生/">
+                        <span class="chip bg-color">云原生</span>
+                    </a>
+                    
+                    <a href="/tags/十二要素原则/">
+                        <span class="chip bg-color">十二要素原则</span>
                     </a>
                     
                 </div>

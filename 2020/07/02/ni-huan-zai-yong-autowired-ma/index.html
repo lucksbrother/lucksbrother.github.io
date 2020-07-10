@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="一起学观察者模式, 幸运哥哥">
+    <meta name="keywords" content="你还在用@Autowired吗？, 幸运哥哥">
     <meta name="description" content="jack of all trades And master most of it">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>一起学观察者模式 | 幸运哥哥</title>
+    <title>你还在用@Autowired吗？ | 幸运哥哥</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -243,12 +243,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('medias/featureimages/17.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">一起学观察者模式</h1>
+                    <h1 class="description center-align post-title">你还在用@Autowired吗？</h1>
                 </div>
             </div>
         </div>
@@ -365,27 +365,18 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/设计模式/">
-                                <span class="chip bg-color">设计模式</span>
+                            <a href="/tags/Spring/">
+                                <span class="chip bg-color">Spring</span>
                             </a>
                         
-                            <a href="/tags/观察者模式/">
-                                <span class="chip bg-color">观察者模式</span>
+                            <a href="/tags/Java/">
+                                <span class="chip bg-color">Java</span>
                             </a>
                         
                     </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/设计模式/" class="post-category">
-                                设计模式
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -394,7 +385,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2018-05-03
+                    2020-07-02
                 </div>
                 
 
@@ -411,180 +402,131 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="聊"><a href="#聊" class="headerlink" title="聊"></a>聊</h2><blockquote>
-<p>这期我们一起学学观察者模式,《一起学策咯模式》是第一次写文章,总结了一下经验,感觉就一个字【<strong>太罗嗦</strong>】,所以这次来点新鲜的,简单的,不同以往的,超级棒的,无与伦比的,让你们读完就和我一样学会观察者模式的，并且还没看完就想点赞的。开始吧。</p>
+                <h3 id="聊"><a href="#聊" class="headerlink" title="聊"></a>聊</h3><p>看标题是不是吓一跳，用了好多年的@Autowired用错了吗？没那么夸张，本篇仅仅是讨论一下我们Spring中最常用的依赖注入方式，目前注入方式有三种，分别是：构造函数注入、方法注入、属性注入。我们来看一小段代码</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloController</span> <span class="token punctuation">{</span>
+
+        <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> BeanA a<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> BeanB b<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setB</span><span class="token punctuation">(</span>BeanB b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>b <span class="token operator">=</span> b<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">final</span> BeanC c<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//    @Autowired</span>
+    <span class="token keyword">public</span> <span class="token function">HelloController</span><span class="token punctuation">(</span>BeanC c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>c <span class="token operator">=</span> c<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p> 是不是非常熟悉，让我猜一下，大多数人用的是哪一种，我猜肯定是第一种属性注入方式，因为我在学Java刚入门时也一直在用第一种。那为什么标题说你还在用@Autowired吗，是不需要了？还是有替代方案了，还是什么。如果还有不知道@Autowired是作啥的同学请自己科普一下，其实在我写这篇文章之前，我也不知道<code>@Autowired</code>的详情，我再提两个注解，<code>@Required</code>  <code>@Inject</code> ，有没有同学用过，我自学Java时候刚刚接触Spring时还是用的Required，当年记得还讨论过 用@Autowired 还是@Required，也查询过资料，但那时没有记录的习惯，这也不是本篇讨论的重点。那重点是啥，现在如果不用@Autowired用什么，为什么不用了，有什么区别。读完本篇文章就可以学到。</p>
+<h3 id="学"><a href="#学" class="headerlink" title="学"></a>学</h3><p>还是先看上面的那段代码，有没有发现第三种方法构造函数注入方式的@Autowired是被注释掉的，会不会有疑问，注释掉之后注入方法还能成功吗？这个问题，或者说这类问题，我个人学习时都会有比较明确的方法，就是《官方文档》，我们一起看一下Spring Boot 2.0的</p>
+<blockquote>
+<h2 id="17-Spring-Bean和依赖注入"><a href="#17-Spring-Bean和依赖注入" class="headerlink" title="17. Spring Bean和依赖注入"></a>17. Spring Bean和依赖注入</h2><p>您可以自由使用任何标准的Spring Framework技术来定义bean及其注入的依赖项。为简单起见，我们经常发现使用 <code>@ComponentScan</code>（查找您的bean）和使用<code>@Autowired</code>（进行构造函数注入）效果很好。</p>
+<p>如果按照上面的建议构造代码（将应用程序类放在根包中），则可以添加<code>@ComponentScan</code>任何参数。您的所有应用程序组件（的<code>@Component</code>，<code>@Service</code>，<code>@Repository</code>，<code>@Controller</code>等）自动注册为春豆。</p>
+<p>以下示例显示了一个<code>@Service</code>使用构造函数注入来获取所需<code>RiskAssessor</code>Bean的Bean：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>service<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Service<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DatabaseAccountService</span> <span class="token keyword">implements</span> <span class="token class-name">AccountService</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">final</span> RiskAssessor riskAssessor<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">public</span> <span class="token function">DatabaseAccountService</span><span class="token punctuation">(</span>RiskAssessor riskAssessor<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>riskAssessor <span class="token operator">=</span> riskAssessor<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>如果bean具有一个构造函数，则可以省略<code>@Autowired</code>，如以下示例所示：</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@Service</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DatabaseAccountService</span> <span class="token keyword">implements</span> <span class="token class-name">AccountService</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">final</span> RiskAssessor riskAssessor<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">DatabaseAccountService</span><span class="token punctuation">(</span>RiskAssessor riskAssessor<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>riskAssessor <span class="token operator">=</span> riskAssessor<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>请注意，使用构造函数注入如何将该<code>riskAssessor</code>字段标记为<code>final</code>，指示该字段 随后无法更改。</p>
 </blockquote>
-<h2 id="例"><a href="#例" class="headerlink" title="例"></a>例</h2><p>设计一个信用卡提醒功能的案例,上学就被信用卡坑过的我（<em>完全不知道办理了一张信用卡，并进行了消费，也没有还款提醒，还超期未还年费，被银行无情的拉入了黑名单中，导致许多年都生活在可怕的信用卡阴影中</em>）,在不久前又鼓起了勇气办了一张信用卡,这次办卡经历还算不错,在开通时就选择了账单提醒功能,可以通过邮件、短信、微信公众号、挂号信等形式通知我，这次我们就用观察者模式实现一个简单的信用卡提醒功能。</p>
-<p>假定我们已经开通信用卡，并且已有一个可以收到信用卡消费消息的类，完成一个可以任意选择提醒方式，并在进行消费后用多种方式同时通知本人消费情况。有兴趣可以自行实现一下再来对比对比我的实现。</p>
-<p>设：<br>银行消息类{ 获得消费金额();获得消费场所();获得消费时间();消费通知方法();}<br>可以获得信用卡的每一笔消费金额及消费场所和时间.</p>
-<p>短信通知类{通知更新方法();显示方法()}<br>微信通知类{通知更新方法();显示方法()}<br>邮件通知类{通知更新方法();显示方法()}</p>
-<p>当银行获得模拟消费操作后,通过调用消费通知方法(),完成消费的通知,消费通知类收到通知后,各自调用显示方法()提醒消费信息;</p>
-<p>将此系统设计成可扩展的,例如通知类可以新增,比如挂号信方式,电话通知方式,例如通知类型可随意开关,我只想要短信和邮件通知,并不需要微信,之后我又开通了微信,并想打开微信通知.诸如此类操作.</p>
-<p><img src="/uploads/post/capter2.png" alt="信用卡一"></p>
-<h2 id="做"><a href="#做" class="headerlink" title="做"></a>做</h2><p>创建银行消息类:BankMessage</p>
-<pre><code>class BankMessage extends Observable {
+<p>也就是官方推荐的使用方式目前是@Autowired注解的构造函数注入，并且@Autowired可以省略。不知道大家有没有写过非Spring框架的Java程序，如果有，可以回忆一下，构造函数用的多吗？为什么用？这个问题留给小伙伴们自己探索。我们继续讨论，为什么要有三种注入方法，什么时候用，优缺点是什么。</p>
+<h3 id="记"><a href="#记" class="headerlink" title="记"></a>记</h3><p>为了探索这个问题，我在网上科普了一下相关资料，首先要搞明白问题，就需要从根源出发，有人喜欢看源码，搞清楚原理，而我喜欢看文档，关于这件事，我第一个疑问就是@Autowired是何时出现的，从Spring1.0开始翻，2.0-&gt;3.0-&gt;2.5,终于让我在Spring2.5的文档中找到了他的出生信息。</p>
+<blockquote>
+<p>从Spring 2.5开始，您可以依赖<code>BeanFactory的</code>自动装配 作为实现<code>BeanFactoryAware</code> 接口的另一种选择。现在，“传统” <code>构造函数</code>和 <code>byType</code>自动装配模式（如<a href="https://docs.spring.io/spring/docs/2.5.0/reference/beans.html#beans-factory-autowire" target="_blank" rel="noopener">第3.3.5节“自动装配协作器”</a>一<a href="https://docs.spring.io/spring/docs/2.5.0/reference/beans.html#beans-factory-autowire" target="_blank" rel="noopener">节</a>中所述）能够分别为构造函数参数或setter方法参数提供<code>BeanFactory</code>类型的依赖项 。为了获得更大的灵活性（包括自动装配字段和使用多个参数方法的能力），请考虑使用新的基于注释的自动装配功能。在这种情况下，<code>BeanFactory</code>只要有问题的字段，构造函数或方法带有<code>@Autowired</code>批注，它将自动连接到期望<code>BeanFactory</code>类型 的字段，构造函数参数或方法参数。有关更多信息，请参见标题为<a href="https://docs.spring.io/spring/docs/2.5.0/reference/beans.html#beans-autowired-annotation" target="_blank" rel="noopener">第3.10.1节“ @Autowired”的部分</a>。</p>
+</blockquote>
+<p>而且最早出现时，@Autowired并不支持属性注入方式，那没有@Autowired之前就是另外两种，并且1.0时官方推荐的是Setter方法注入，到了2.0官方就一直是推荐构造函数注入了。有兴趣的同学可以看一卡这篇文章，较早版本的就不再讨论了。</p>
+<p><a href="https://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required/" target="_blank" rel="noopener">https://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required/</a></p>
+<p>继续聊@Autowired，他是从什么时候开始大量使用的，Spring3.0，这时Spring支持了@Autowired给属性使用,但官方并没有推荐使用，到了Spring4.3时，官方又对构造函数进行了说明，当一个类只有一个构造函数时，可以省略@Autowired的注释。那么为什么@Autowired 注解属性的形势还会一直存在并延续至今呢，我通过与朋友讨论时获知了一部分原因，经过写代码尝试和网络上的科普最终汇总了几种情况</p>
+<p>@Autowired 属性注入形式优点：</p>
+<p>1、可以在单例模式下允许循环依赖注入的存在，即，解决了循环依赖注入的问题。如果有业务必须使用循环依赖注入，可以考虑使用。</p>
+<p>2、使用简单直接给属性注解即可，代码量少。</p>
+<p>3、使代码整洁，美观。</p>
+<p>@Autowired 属性注入形式缺点：</p>
+<p>1、不允许声明不可变域，也就是无法对属性进行 final 修饰。</p>
+<p>2、容易违反单一职责设计原则，举个例子，一个类使用10个以上的@Autowired，代码看起来并无异常，但一个有10个参数的构造函数，已经违反了一个良好的代码规范，从而考虑是否应该优化该类的使用职责。</p>
+<p>3、注入顺序靠后，容易出现空指针调用，举个例子，被注入的类用构造函数给其他属性赋值时，由于注入属性还为被反射注入，造成空指针异常。</p>
+<p>4、与依赖注入容器紧密耦合，即，在离开Spring容器外，代码将失去作用，例如单元测试。</p>
+<p>5、没有对依赖进行检查</p>
+<p>然后再一一分析一下优点，其中比较有争议的就是第一点，我个人觉得第一点并不算是优点，循环依赖这种问题，如果没有特殊情况，从架构设计上讲本身就是违反原则的一种情况，应该即时检查并发现错误的存在并排除此类问题（构造器方法，和Setter方法都可以做到而构造器可以在编译时发现，Setter是在运行时发现），不用说肯定是编译时发现更合适。</p>
+<p>其他两点都趋向于可读性和美观方面的优点，其实通过同事的启发构造器方式也可以做到同样的效果，比如利用lombok的注解@AllArgsConstructor, 不过这样会隐藏实现，不熟悉的人会造成额外的阅读麻烦，并不推荐。</p>
+<pre class=" language-java"><code class="language-java"><span class="token annotation punctuation">@AllArgsConstructor</span>
+<span class="token annotation punctuation">@RestController</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HelloController</span> <span class="token punctuation">{</span>
 
-    private Float consumptionAmount;
-    private String consumptionAddress;
-    private Date consumptionDate;
+    <span class="token keyword">private</span> <span class="token keyword">final</span> BeanA a<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> BeanB b<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> BeanC c<span class="token punctuation">;</span>
 
-    //通知方法
-    private void consumptionNotify() {
-        //改变标记
-        setChanged();
-        //通知观察者,参数为this
-        notifyObservers(this);
-    }
-
-    //模拟消费方法
-    void setConsumptionAction(Float consumptionAmount, String consumptionAddress, Date consumptionDate){
-        this.consumptionAddress = consumptionAddress;
-        this.consumptionAmount = consumptionAmount;
-        this.consumptionDate = consumptionDate;
-        consumptionNotify();
-    }
-
-    Float getConsumptionAmount() {
-        return consumptionAmount;
-    }
-
-    String getConsumptionAddress() {
-        return consumptionAddress;
-    }
-
-    Date getConsumptionDate() {
-        return consumptionDate;
-    }
-
-}
-</code></pre><p>创建消费通知接口:ConsumptionNotify</p>
-<pre><code>public interface ConsumptionNotify {
-    void display();
-}
-</code></pre><p>创建邮件通知类:MailNotify</p>
-<pre><code>public class MailNotify implements Observer, ConsumptionNotify {
-    private Observable observable;
-
-    private Float consumptionAmount;
-    private String consumptionAddress;
-    private Date consumptionDate;
-
-    public MailNotify(Observable observable) {
-        this.observable = observable;
-        observable.addObserver(this);
-    }
-
-    @Override
-    public void display() {
-        //模拟邮件发送
-        System.out.println(&quot;邮件消息:&quot; + consumptionDate + &quot;时,您在&quot; +consumptionAddress+&quot;消费了&quot;+consumptionAmount+&quot;元人民币&quot;);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (o instanceof BankMessage) {
-            BankMessage bankMessage = (BankMessage) o;
-            //可自定义通知条件：达到10元以上才启用邮件形式
-            if (bankMessage.getConsumptionAmount() &gt; 10) {
-                this.consumptionAmount = bankMessage.getConsumptionAmount();
-                this.consumptionAddress = bankMessage.getConsumptionAddress();
-                this.consumptionDate = bankMessage.getConsumptionDate();
-                display();
-            }
-        }
-    }
-}
-</code></pre><p>创建短信通知类:SMSNotify</p>
-<pre><code>public class SMSNotify implements Observer, ConsumptionNotify {
-
-    private Observable observable;
-
-    private Float consumptionAmount;
-    private String consumptionAddress;
-    private Date consumptionDate;
-
-    public SMSNotify(Observable observable) {
-        this.observable = observable;
-        observable.addObserver(this);
-    }
-
-    @Override
-    public void display() {
-        System.out.println(&quot;短信消息:&quot; + consumptionDate + &quot;时,您在&quot; +consumptionAddress+&quot;消费了&quot;+consumptionAmount+&quot;元人民币&quot;);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (o instanceof BankMessage) {
-            BankMessage bankMessage = (BankMessage) o;
-            this.consumptionAmount = bankMessage.getConsumptionAmount();
-            this.consumptionAddress = bankMessage.getConsumptionAddress();
-            this.consumptionDate = bankMessage.getConsumptionDate();
-            display();
-        }
-    }
-}
-</code></pre><p>创建微信通知类:WechatNotify</p>
-<pre><code>public class WechatNotify implements Observer, ConsumptionNotify {
-
-    private Observable observable;
-
-    private Float consumptionAmount;
-    private String consumptionAddress;
-    private Date consumptionDate;
-
-    public WechatNotify(Observable observable) {
-        this.observable = observable;
-        observable.addObserver(this);
-    }
-
-    @Override
-    public void display() {
-        //模拟邮件发送
-        System.out.println(&quot;微信消息:&quot; + consumptionDate + &quot;时,您在&quot; +consumptionAddress+&quot;消费了&quot;+consumptionAmount+&quot;元人民币&quot;);
-    }
-
-    @Override
-    public void update(Observable o, Object arg) {
-        if (o instanceof BankMessage) {
-            BankMessage bankMessage = (BankMessage) o;
-            this.consumptionAmount = bankMessage.getConsumptionAmount();
-            this.consumptionAddress = bankMessage.getConsumptionAddress();
-            this.consumptionDate = bankMessage.getConsumptionDate();
-            display();
-        }
-    }
-
-}
-</code></pre><p>创建测试方法:TestMain</p>
-<pre><code>public class TestMain {
-
-    public static void main(String[] args) {
-        BankMessage data = new BankMessage();
-
-        SMSNotify smsNotify = new SMSNotify(data);
-        MailNotify mailNotify = new MailNotify(data);
-        WechatNotify wechatNotify = new WechatNotify(data);
-
-        data.setConsumptionAction(5.5F, &quot;超市&quot;, new Date());
-        data.setConsumptionAction(15.5F, &quot;餐厅&quot;, new Date());
-        data.deleteObserver(mailNotify);
-        data.setConsumptionAction(55.5F, &quot;旅店&quot;, new Date());
-
-    }
-}
-</code></pre><p>通过运行测试方法即可看到结果,一个简单的观察者模式案例完成啦.</p>
-<p><a href="https://github.com/lucksbrother/studyDesignPattern" target="_blank" rel="noopener">代码下载地址</a></p>
-<h2 id="记"><a href="#记" class="headerlink" title="记"></a>记</h2><ul>
-<li><strong>设计原则：独立出应用中可能需要变化部分，不要和那些不需要变化的代码混在一起。</strong></li>
-<li><strong>设计原则：针对接口编程，而不是针对实现编程</strong></li>
-<li><strong>设计原则：多用组合，少用继承</strong></li>
-<li><strong>设计原则：为了交互对象之间的松耦合设计而努力</strong></li>
-</ul>
-<p><strong><font size="5">观察者模式</font></strong>定义了对象之间的一对多依赖,这样一来,当一个对象改变状态时,它的所有依赖者都会收到通知并自动更新.</p>
-<p><strong>Observable类</strong>:java.util 包提供的观察者模式主题父类<br>可观察者继承后,提供一些添加删除观察者的方法.</p>
-<p><strong>Observer接口</strong>:接口定义了”推”或”拉”数据的方法,实现接口update方法,可任意自定义获取到的数据处理方式.</p>
-<h2 id="实"><a href="#实" class="headerlink" title="实"></a>实</h2><p>学习此设计模式后我第一个想到的实际应用就是之前做过的一个程序,对同类设备进行不同的检测,被检测设备的数量可能随时变化,可以定义成可观察类,并且定时进行设备更新,数量变化后,通知不同类型的检测类,分别进行检测,并且可随时控制某一类检测的开关.</p>
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/hi"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">sayHi</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        a<span class="token punctuation">.</span><span class="token function">sayHi</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token string">"Hi"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>其实@Autowired属性注入还是Setter注入或者构造函数注入，在大多数情况下都不会是问题，所以其实根据个人习惯就好，另外想说的就是多关注一下所用技术的官方资料，更新，补丁等问题。最后放出Spring5的原文翻译。</p>
+<blockquote>
+<p><strong>基于构造函数或基于setter的DI？</strong></p>
+<p>由于可以混合使用基于构造函数的DI和基于setter的DI，因此，将构造函数用于强制性依赖项，将setter方法或配置方法用于可选性依赖项是一个很好的经验法则。请注意，可以 在setter方法上使用<a href="https://docs.spring.io/spring/docs/5.3.0-M1/spring-framework-reference/core.html#beans-required-annotation" target="_blank" rel="noopener">@Required</a>批注，以使该属性成为必需的依赖项。但是，最好使用带有参数的程序验证的构造函数注入。</p>
+<p>Spring团队通常提倡使用构造函数注入，因为它可以让您将应用程序组件实现为不可变对象，并确保不存在必需的依赖项<code>null</code>。此外，注入构造函数的组件始终以完全初始化的状态返回给客户端（调用）代码。附带说明一下，大量的构造函数自变量是一种不好的代码味，这表明该类可能承担了太多的职责，应进行重构以更好地解决关注点分离问题。</p>
+<p>Setter注入主要应仅用于可以在类中分配合理的默认值的可选依赖项。否则，必须在代码使用依赖项的任何地方执行非空检查。setter注入的一个好处是，setter方法可使该类的对象在以后重新配置或重新注入。因此，通过<a href="https://docs.spring.io/spring/docs/5.3.0-M1/spring-framework-reference/integration.html#jmx" target="_blank" rel="noopener">JMX MBean进行</a>管理是用于setter注入的引人注目的用例。</p>
+<p>使用最适合特定班级的DI风格。有时，在处理您没有源代码的第三方类时，将为您做出选择。例如，如果第三方类未公开任何setter方法，则构造函数注入可能是DI的唯一可用形式。</p>
+<p><strong>循环依赖</strong></p>
+<p>如果主要使用构造函数注入，则可能会创建无法解决的循环依赖方案。</p>
+<p>例如：类A通过构造函数注入需要类B的实例，而类B通过构造函数注入需要类A的实例。如果您将A类和B类的bean配置为相互注入，则Spring IoC容器会在运行时检测到此循环引用，并抛出 <code>BeanCurrentlyInCreationException</code>。</p>
+<p>一种可能的解决方案是编辑某些类的源代码，这些类的源代码由设置者而不是构造函数来配置。或者，避免构造函数注入，而仅使用setter注入。换句话说，尽管不建议这样做，但是可以使用setter注入配置循环依赖关系。</p>
+<p>与典型情况（没有循环依赖关系）不同，bean A和bean B之间的循环依赖关系迫使其中一个bean在完全初始化之前被注入另一个bean（经典的“养鸡和养猪”方案）</p>
+</blockquote>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th>注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>只有<em>一个每类注释构造函数</em> 可以作为标记<em>要求</em>，但多个非必需的构造函数可以被注解。在这种情况下，每个候选对象都将被考虑在内，Spring将使用 <em>最贪婪的</em>构造函数，该构造函数可以满足其依存关系，即参数数量最多的构造函数。<code>@Autowired</code>建议在注释上使用的 <em>必填</em>属性 <code>@Required</code>。将 <em>所需的</em>属性表示不需要属性自动装配的目的，如果它不能自动装配的属性被忽略。<code>@Required</code>另一方面，它更强大，因为它可以强制执行通过容器支持的任何方式设置的属性。如果未注入任何值，则会引发相应的异常。</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<p>文献资料</p>
+<p><a href="https://docs.spring.io/spring/docs/2.0.0/reference/beans.html#beans-factory-autowire" target="_blank" rel="noopener">https://docs.spring.io/spring/docs/2.0.0/reference/beans.html#beans-factory-autowire</a></p>
+<p><a href="https://docs.spring.io/spring/docs/2.5.0/reference/beans.html#beans-autowired-annotation" target="_blank" rel="noopener">https://docs.spring.io/spring/docs/2.5.0/reference/beans.html#beans-autowired-annotation</a></p>
+<p><a href="https://docs.spring.io/spring/docs/3.0.0.RELEASE/reference/htmlsingle/#beans-autowired-annotation" target="_blank" rel="noopener">https://docs.spring.io/spring/docs/3.0.0.RELEASE/reference/htmlsingle/#beans-autowired-annotation</a></p>
+<p><a href="https://docs.spring.io/spring/docs/5.3.0-M1/spring-framework-reference/core.html#beans-dependencies" target="_blank" rel="noopener">https://docs.spring.io/spring/docs/5.3.0-M1/spring-framework-reference/core.html#beans-dependencies</a></p>
 
             </div>
             <hr/>
@@ -610,7 +552,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lucksbrother.github.io/2018/05/03/yi-qi-xue-guan-cha-zhe-mo-shi/">https://lucksbrother.github.io/2018/05/03/yi-qi-xue-guan-cha-zhe-mo-shi/</a>
+                    <a href="https://lucksbrother.github.io/2020/07/02/ni-huan-zai-yong-autowired-ma/">https://lucksbrother.github.io/2020/07/02/ni-huan-zai-yong-autowired-ma/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -648,12 +590,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/设计模式/">
-                                    <span class="chip bg-color">设计模式</span>
+                                <a href="/tags/Spring/">
+                                    <span class="chip bg-color">Spring</span>
                                 </a>
                             
-                                <a href="/tags/观察者模式/">
-                                    <span class="chip bg-color">观察者模式</span>
+                                <a href="/tags/Java/">
+                                    <span class="chip bg-color">Java</span>
                                 </a>
                             
                         </div>
@@ -841,54 +783,49 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2018/10/30/hadoop-wei-fen-bu-shi-ji-qun-da-jian/">
+                <a href="/2020/07/02/ni-huan-zai-yong-autowired-ma/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="hadoop伪分布式集群搭建">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="你还在用@Autowired吗？">
                         
-                        <span class="card-title">hadoop伪分布式集群搭建</span>
+                        <span class="card-title">你还在用@Autowired吗？</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            1、安装linux系统我采用虚拟机的方式安装了fedora27 server系统
-安装过程略，安装完毕后更新系统
-&gt;dnf update -y
-&gt;dnf install -y vim
-注意：文中所用命令为【&gt;】开头，vim
+                            聊看标题是不是吓一跳，用了好多年的@Autowired用错了吗？没那么夸张，本篇仅仅是讨论一下我们Spring中最常用的依赖注入方式，目前注入方式有三种，分别是：构造函数注入、方法注入、属性注入。我们来看一小段代码
+public class
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2018-10-30
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-02
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/大数据/" class="post-category">
-                                    大数据
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Robin
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Hadoop/">
-                        <span class="chip bg-color">Hadoop</span>
+                    <a href="/tags/Spring/">
+                        <span class="chip bg-color">Spring</span>
                     </a>
                     
-                    <a href="/tags/大数据/">
-                        <span class="chip bg-color">大数据</span>
+                    <a href="/tags/Java/">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>
@@ -902,31 +839,31 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2018/04/22/yi-qi-xue-she-ji-mo-shi/">
+                <a href="/2020/06/11/shi-er-yao-su-feng-ge-pei-zhi/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="一起学设计模式">
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="十二要素风格配置">
                         
-                        <span class="card-title">一起学设计模式</span>
+                        <span class="card-title">十二要素风格配置</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            聊&emsp;&emsp;这是我写的第一篇技术类专题《一起学设计模式》，因为没什么写作经验，在用什么样的方式来写文章纠结了一上午，也搜了很多如何写好一篇技术文章之类的教程，最终还是没有领悟（这里应该有个尴尬的表情），我打算用专题加章节分离的
+                            聊随着《云原生》的学习，我计划同步开启一项开源项目，来将所学实践到项目中去，先简单介绍一下CNAdmin，全称Cloud Native Admin，云原生后台管理系统，后端使用SpringBoot 2.3.0 ，并且尽可能少的加载其他依赖。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2018-04-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-06-11
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/设计模式/" class="post-category">
-                                    设计模式
+                            <a href="/categories/云原生/" class="post-category">
+                                    云原生
                                 </a>
                             
                             
@@ -936,8 +873,16 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/设计模式/">
-                        <span class="chip bg-color">设计模式</span>
+                    <a href="/tags/云原生/">
+                        <span class="chip bg-color">云原生</span>
+                    </a>
+                    
+                    <a href="/tags/十二要素原则/">
+                        <span class="chip bg-color">十二要素原则</span>
+                    </a>
+                    
+                    <a href="/tags/配置/">
+                        <span class="chip bg-color">配置</span>
                     </a>
                     
                 </div>
