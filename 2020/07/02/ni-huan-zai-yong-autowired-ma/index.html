@@ -426,7 +426,8 @@
 <p> 是不是非常熟悉，让我猜一下，大多数人用的是哪一种，我猜肯定是第一种属性注入方式，因为我在学Java刚入门时也一直在用第一种。那为什么标题说你还在用@Autowired吗，是不需要了？还是有替代方案了，还是什么。如果还有不知道@Autowired是作啥的同学请自己科普一下，其实在我写这篇文章之前，我也不知道<code>@Autowired</code>的详情，我再提两个注解，<code>@Required</code>  <code>@Inject</code> ，有没有同学用过，我自学Java时候刚刚接触Spring时还是用的Required，当年记得还讨论过 用@Autowired 还是@Required，也查询过资料，但那时没有记录的习惯，这也不是本篇讨论的重点。那重点是啥，现在如果不用@Autowired用什么，为什么不用了，有什么区别。读完本篇文章就可以学到。</p>
 <h3 id="学"><a href="#学" class="headerlink" title="学"></a>学</h3><p>还是先看上面的那段代码，有没有发现第三种方法构造函数注入方式的@Autowired是被注释掉的，会不会有疑问，注释掉之后注入方法还能成功吗？这个问题，或者说这类问题，我个人学习时都会有比较明确的方法，就是《官方文档》，我们一起看一下Spring Boot 2.0的</p>
 <blockquote>
-<h2 id="17-Spring-Bean和依赖注入"><a href="#17-Spring-Bean和依赖注入" class="headerlink" title="17. Spring Bean和依赖注入"></a>17. Spring Bean和依赖注入</h2><p>您可以自由使用任何标准的Spring Framework技术来定义bean及其注入的依赖项。为简单起见，我们经常发现使用 <code>@ComponentScan</code>（查找您的bean）和使用<code>@Autowired</code>（进行构造函数注入）效果很好。</p>
+<p><strong>17. Spring Bean和依赖注入</strong></p>
+<p>您可以自由使用任何标准的Spring Framework技术来定义bean及其注入的依赖项。为简单起见，我们经常发现使用 <code>@ComponentScan</code>（查找您的bean）和使用<code>@Autowired</code>（进行构造函数注入）效果很好。</p>
 <p>如果按照上面的建议构造代码（将应用程序类放在根包中），则可以添加<code>@ComponentScan</code>任何参数。您的所有应用程序组件（的<code>@Component</code>，<code>@Service</code>，<code>@Repository</code>，<code>@Controller</code>等）自动注册为春豆。</p>
 <p>以下示例显示了一个<code>@Service</code>使用构造函数注入来获取所需<code>RiskAssessor</code>Bean的Bean：</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>service<span class="token punctuation">;</span>
