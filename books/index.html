@@ -4,7 +4,7 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="云原生十二要素原则, 幸运哥哥">
+    <meta name="keywords" content="我的书单, 幸运哥哥">
     <meta name="description" content="jack of all trades And master most of it">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>云原生十二要素原则 | 幸运哥哥</title>
+    <title>我的书单 | 幸运哥哥</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -290,12 +290,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">云原生十二要素原则</h1>
+                    <h1 class="description center-align post-title">我的书单</h1>
                 </div>
             </div>
         </div>
@@ -410,29 +410,12 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                    <div class="article-tag">
-                        
-                            <a href="/tags/云原生/">
-                                <span class="chip bg-color">云原生</span>
-                            </a>
-                        
-                            <a href="/tags/十二要素原则/">
-                                <span class="chip bg-color">十二要素原则</span>
-                            </a>
-                        
-                    </div>
+                          <div class="article-tag">
+                            <span class="chip bg-color">无标签</span>
+                          </div>
                     
                 </div>
                 <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fas fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/云原生/" class="post-category">
-                                云原生
-                            </a>
-                        
-                    </div>
                     
                 </div>
             </div>
@@ -441,7 +424,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-06-06
+                    2020-07-15
                 </div>
                 
 
@@ -458,158 +441,118 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="聊"><a href="#聊" class="headerlink" title="聊"></a>聊</h3><blockquote>
-<p>刚刚更换了新的工作环境，第一周就赶上公司的技术公开课《云时代技术人员的颠覆与突破》，课程提到了《云原生》，恰好自己看过一本云原生的书籍，由于一直没有时间对书中讲到的知识进行应用实践，渐渐的就放下了，这次借助技术公开课的学习，及新环境的平台，我也希望自己将一些书籍知识不仅仅放在书本和脑袋中，而是将它们以实践的方式写出来，并尽可能的应用于工作中，也希望能给其他开发者带来一些共鸣，本文介绍一下《云原生》的核心理念，十二要素原则，该原则不限于语言实现，但本文将其实现构建于SpringBoot框架中。</p>
-</blockquote>
-<h3 id="十二要素原则"><a href="#十二要素原则" class="headerlink" title="十二要素原则"></a>十二要素原则</h3><p>十二要素原则是由Heroku云平台的创建者所编写的一套应用程序开发理论。Twelve-Factor App 是一个由Heroku联合创始人Adam Wiggins 创建的网站，用于描述利用现代云平台来实际构建Saas应用程序的一份宣言。<br>[网站地址]: <a href="https://www.12factor.net/zh_cn/" target="_blank" rel="noopener">https://www.12factor.net/zh_cn/</a><br>本篇我将用Java开发应用，套用十二要素原则的实践进行介绍。</p>
-<h4 id="十二要素程序的实践"><a href="#十二要素程序的实践" class="headerlink" title="十二要素程序的实践"></a>十二要素程序的实践</h4><table>
-<thead>
-<tr>
-<th>十二要素</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>代码库</td>
-<td>一份版本控制下的基准代码库，多份部署</td>
-</tr>
-<tr>
-<td>依赖</td>
-<td>显式声明和隔离依赖关系</td>
-</tr>
-<tr>
-<td>配置</td>
-<td>在环境中存储配置</td>
-</tr>
-<tr>
-<td>后端服务</td>
-<td>把后端服务当作附加资源</td>
-</tr>
-<tr>
-<td>构建，发布，运行</td>
-<td>严格分离构建和运行阶段</td>
-</tr>
-<tr>
-<td>进程</td>
-<td>将应用程序作为一个活多个无状态进程执行</td>
-</tr>
-<tr>
-<td>端口绑定</td>
-<td>通过端口绑定暴露服务</td>
-</tr>
-<tr>
-<td>并发</td>
-<td>通过进程模型进行扩展</td>
-</tr>
-<tr>
-<td>易处理</td>
-<td>通过快速启动和正常关机来最大限度地提高健壮性</td>
-</tr>
-<tr>
-<td>开发/生产环境一致</td>
-<td>尽可能保持开发、预发布和生产环境的配置一致</td>
-</tr>
-<tr>
-<td>日志</td>
-<td>将日志视为事件流</td>
-</tr>
-<tr>
-<td>管理进程</td>
-<td>将管理任务作为一次性进程运行</td>
-</tr>
-</tbody>
-</table>
-<h4 id="代码库"><a href="#代码库" class="headerlink" title="代码库"></a>代码库</h4><blockquote>
-<p>一份版本控制下的基准代码库，多份部署</p>
-</blockquote>
-<p>应用程序的源代码仓库应该只包含一个应用程序，并列出它所依赖的资源清单。对于不同的环境，我们应该不需要重新编译或打包应用程序。每个环境中特有的设置应该与代码无关。</p>
-<h5 id="SpringBoot-实现"><a href="#SpringBoot-实现" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例"><a href="#反例" class="headerlink" title="反例"></a>反例</h5><h5 id="正例"><a href="#正例" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h4><blockquote>
-<p>显式声明和隔离依赖关系</p>
-</blockquote>
-<p>应该显式地声明应用程序的依赖关系，并且可以通过依赖项管理软件（如Apache Maven）的仓库，下载任意或所有的依赖关系。</p>
-<p>满足十二要素的程序，不应该依赖于底层系统级包才能够运行。应用程序的所有依赖关系都应该被明确地声明在清淡文件中，该文件清晰地列出了每个引用的详细信息。</p>
-<h5 id="SpringBoot-实现-1"><a href="#SpringBoot-实现-1" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-1"><a href="#反例-1" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-1"><a href="#正例-1" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><blockquote>
-<p>在环境中存储配置</p>
-</blockquote>
-<p>应用程序的代码应与配置严格分开。应用程序的配置应由各自环境管理。</p>
-<p>所依赖服务的连接字符串、密码或者主机名等，应该存储为环境变量，这样易于修改，无需部署配置文件。</p>
-<p>应用程序在环境之间的任何差异，应该都认为是一种环境配置，并且应该存储在环境中，而不是应用程序中。</p>
-<h5 id="SpringBoot-实现-2"><a href="#SpringBoot-实现-2" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-2"><a href="#反例-2" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-2"><a href="#正例-2" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="后端服务"><a href="#后端服务" class="headerlink" title="后端服务"></a>后端服务</h4><blockquote>
-<p>把后端服务当作附加资源</p>
-</blockquote>
-<p>后端服务是十二要素程序正常运行所需要依赖的任何服务。举例说明，后端服务包括数据库，API驱动的RESTfulWeb服务，SMTP服务器或FTP服务器。</p>
-<p>后端服务被认为是应用程序的某种资源。这些资源在运行期间被绑定到应用程序上。十二要素程序应该在无须代码改动的前提下，可以从一个测试环境中的嵌入式SQL数据库，切换到预发布环境下的一个独立MySQL数据库。</p>
-<h5 id="SpringBoot-实现-3"><a href="#SpringBoot-实现-3" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-3"><a href="#反例-3" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-3"><a href="#正例-3" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="构建、发布、运行"><a href="#构建、发布、运行" class="headerlink" title="构建、发布、运行"></a>构建、发布、运行</h4><blockquote>
-<p>严格分离构建和运行阶段</p>
-</blockquote>
-<p>十二要素程序严格分离了构建、发布、和运行几个阶段。</p>
-<ul>
-<li>构建阶段<ul>
-<li>构建阶段将应用程序的源代码编译或打包到一个程序包中。创建的包被称为一次构建物。</li>
-</ul>
-</li>
-<li>发布阶段<ul>
-<li>发布阶段需要将某次构建与配置相结合。随后，创建出的发布文件应该可以在某个执行环境中运行。无论是使用版本号还是时间戳，每个版本应该有一个唯一的标识符。每个发布文件都应该被添加到一个目录中，可以通过发布管理工具回滚到之前的发布版本</li>
-</ul>
-</li>
-<li>运行阶段<ul>
-<li>运行阶段是指在可执行环境中运行一个指定的应用版本。</li>
-</ul>
-</li>
-</ul>
-<p>通过将这些阶段分成独立的流程，在运行时就完全不可能去更改任何程序代码。更改应用程序代码的唯一方法，就是通过构建阶段来创建一个新的版本，或者回滚到之前部署的某个版本。</p>
-<h5 id="SpringBoot-实现-4"><a href="#SpringBoot-实现-4" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-4"><a href="#反例-4" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-4"><a href="#正例-4" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h4><blockquote>
-<p>将应用程序作为一个或多个无状态进程执行</p>
-</blockquote>
-<p>十二要素程序应该是一种无共享、无状态的架构。应用程序可以依赖的唯一持久化元素是后端服务。提供持久化的后端服务包括数据库或对象存储。应用程序运行时需要的所有资源都应该作为后端服务。无论应用程序是否是无状态的，都需要进行测试，保证应用程序的执行环节在关闭或启动时都不会有任何数据丢失发生。</p>
-<p>十二要素程序不应该在执行环境中的本地文件系统上存储任何有关的状态信息。</p>
-<h5 id="SpringBoot-实现-5"><a href="#SpringBoot-实现-5" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-5"><a href="#反例-5" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-5"><a href="#正例-5" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="端口绑定"><a href="#端口绑定" class="headerlink" title="端口绑定"></a>端口绑定</h4><blockquote>
-<p>通过端口绑定暴露服务</p>
-</blockquote>
-<p>十二要素程序本身是完全独立的，这表示它们不需要在运行时引入一个web服务器，就可以提供对外的Web服务能力。每个应用程序通过将自身HTTP端口绑定到执行环境中，来对外公开自己的访问。在部署期间，对于来自公开主机的请求，路由层灰将请求路由到应用程序的执行环境和绑定的HTTP端口来进行处理。</p>
-<h5 id="SpringBoot-实现-6"><a href="#SpringBoot-实现-6" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-6"><a href="#反例-6" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-6"><a href="#正例-6" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h4><blockquote>
-<p>通过进程模型进行扩展</p>
-</blockquote>
-<p>在需要时，应用程序应该能够通过增加进程或线程来并行执行工作。JVM应用程序能够使用多个线程自动处理进程中的并发情况。</p>
-<p>根据类型不同，应用程序应该能够同时分配多个工作。目前，JVM的大多数应用程序框架都内置了这个能力。对于一些需要长时间运行的数据处理工作，你应该使用执行器，异步的将多个并发工作分配给可用的线程池。</p>
-<p>十二要素程序还必须能够水平扩展，并且能够将多个并发工作分配给可用的线程池。</p>
-<h5 id="SpringBoot-实现-7"><a href="#SpringBoot-实现-7" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-7"><a href="#反例-7" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-7"><a href="#正例-7" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="易处理"><a href="#易处理" class="headerlink" title="易处理"></a>易处理</h4><blockquote>
-<p>通过快速启动和正常关机来最大限度的提高健壮性</p>
-</blockquote>
-<p>十二要素程序需要被设计成易处理的。应用程序应该可以在执行过程中的任意时刻停止，并且能够优雅地释放进程。</p>
-<p>应用程序的进程应尽可能地减少启动时间。应用程序应该在几秒钟内启动，并且开始能够处理接收的请求。短暂的启动时间会降低应用程序进行水平扩展时花费的时间。</p>
-<p>如果应用程序的进程启动花费太长时间，可能会在高峰时间导致所有的应用程序实例过载，从而降低系统整体的可用性。通过将应用程序的启动时间减少到几秒钟，新的实例能够更快速地响应不可预测的流量峰值，而不会降低系统的可用性或者性能。</p>
-<h5 id="SpringBoot-实现-8"><a href="#SpringBoot-实现-8" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-8"><a href="#反例-8" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-8"><a href="#正例-8" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="开发-生产环境一致"><a href="#开发-生产环境一致" class="headerlink" title="开发/生产环境一致"></a>开发/生产环境一致</h4><blockquote>
-<p>尽可能保持开发、预发布和生产环境的配置一致</p>
-</blockquote>
-<p>十二要素程序应防止开发和生产环境之间存在差异。有三种类型的差异需要注意。</p>
-<p>时间差异</p>
-<p>开发人员希望开发的变更代码能够快速部署到生产环境中。</p>
-<p>人员差异</p>
-<p>更改代码的开发人员应该密切关注生产环境的部署，并在部署后密切监控应用程序的行为。</p>
-<p>工具差异</p>
-<p>每个环境应该具备相同的技术和框架，避免因为一些细小的意外差异导致不一致的行为出现。</p>
-<h5 id="SpringBoot-实现-9"><a href="#SpringBoot-实现-9" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-9"><a href="#反例-9" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-9"><a href="#正例-9" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h4><blockquote>
-<p>将日志视为事件流</p>
-</blockquote>
-<p>十二要素程序将写日志看作到标准输出的一个有序事件流。应用程序不应该负责管理自身日志文件的存储。应用程序日志输出的收集和归档工作应该由运行环境来完成。</p>
-<h5 id="SpringBoot-实现-10"><a href="#SpringBoot-实现-10" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-10"><a href="#反例-10" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-10"><a href="#正例-10" class="headerlink" title="正例"></a>正例</h5><hr>
-<h4 id="管理进程"><a href="#管理进程" class="headerlink" title="管理进程"></a>管理进程</h4><blockquote>
-<p>将管理任务作为一次性进程运行</p>
-</blockquote>
-<p>有时，应用程序的开发人员需要运行一次性的管理任务。这类任务可能包括数据库迁移或运行已提交到源代码仓库中的一次性脚本。这些都被认为是管理进程。管理进程应该在应用程序的执行环境中运行，并将脚本提交到代码仓库中，以便保持各个环境之间的一致性。</p>
-<h5 id="SpringBoot-实现-11"><a href="#SpringBoot-实现-11" class="headerlink" title="SpringBoot 实现"></a>SpringBoot 实现</h5><h5 id="反例-11"><a href="#反例-11" class="headerlink" title="反例"></a>反例</h5><h5 id="正例-11"><a href="#正例-11" class="headerlink" title="正例"></a>正例</h5>
+                <p><em>以下书单以购买日期排序-按类型分组，同城可以加好友联系本人免费借阅（要求：30天内送还，保持书本整洁不做记号）以书会友。</em></p>
+<h5 id="职业规划及习惯养成"><a href="#职业规划及习惯养成" class="headerlink" title="职业规划及习惯养成"></a>职业规划及习惯养成</h5><ol>
+<li>《内外兼修》程序员的成长之路-已读-2017-8-11</li>
+<li>《技巧》如何用一年时间获得十年的经验-已读-2017-8-11</li>
+<li>《程序员必读的职业规划书》-已读-2017-8-11</li>
+<li>《代码不朽》-推荐-已读-2017-11-02</li>
+<li>《学习敏捷》构建高效团队-推荐-已读-2018-04-20</li>
+<li>《软技能》代码之外的生存指南-推荐-已读-2018-06-01</li>
+<li>《重构》改善既有代码的设计-推荐-已读-2018-06-01</li>
+<li>《代码整洁之道-姐妹篇》程序员的职业素养-推荐-已读-2018-06-01</li>
+<li>《代码整洁之道》-推荐-已读-2018-06-01</li>
+<li>《架构整洁之道》-推荐-部分-2018-11-10</li>
+</ol>
+<h5 id="JAVA技术"><a href="#JAVA技术" class="headerlink" title="JAVA技术"></a>JAVA技术</h5><ol>
+<li>《Head First 设计模式》深入浅出讲清设计模式-推荐-已读-2018-04-09</li>
+<li>《写给大忙人看的Java核心技术》-部分-2017-11-02</li>
+<li>《Netty实战》-推荐-未读-2018-04-09</li>
+<li>《Java工程师修炼之道》-推荐-已读-2018-04-20</li>
+<li>《RabbitMQ实战》高效部署分布式消息队列-未读-2018-04-20</li>
+<li>《Java性能调优指南》-推荐-已读-2018-04-20</li>
+<li>《Java常用算法手册》-推荐-部分-2018-04-20</li>
+<li>《深入理解JVM &amp; G1 GC》-推荐-已读-2018-04-20</li>
+<li>《微服务分布式架构开发实战》-推荐-已读-2018-07-17</li>
+<li>《Spring微服务实战》-推荐-已读-2018-07-17</li>
+<li>《云原生》SpringBoot、SpringCloud与CloudFoundry弹性系统设计-推荐-已读-2018-10-22</li>
+<li>《SpringData》企业级Java的现代数据访问技术（英文版）-未读（囧）-2018-10-22</li>
+<li>《码出高效》Java开发手册-部分-2018-11-10</li>
+<li>《Kotlin实战》-未读-2018-11-10</li>
+<li>《Java并发编程的艺术》-未读-2018-11-11</li>
+<li>《Elasticsearch实战》-未读-2019-5-19</li>
+<li>《Spring Cloud与Docker微服务架构实战》-已读-2019-06-14</li>
+<li>《Java编程方法论》响应式RxJava与代码设计实战-未读-2019-10-24</li>
+<li>《Spring Security》实战-推荐-已读-2019-12-05</li>
+<li>《Spring实战》第五版-推荐-在读-2020-05-01</li>
+</ol>
+<h5 id="大数据技术"><a href="#大数据技术" class="headerlink" title="大数据技术"></a>大数据技术</h5><ol>
+<li>《Hadoop大数据实战权威指南》-推荐-已读-2017-11-02</li>
+<li>《大数据之路》阿里巴巴大数据实践-部分-2018-04-09</li>
+<li>《企业数据湖》-推荐-已读-2019-02-03</li>
+</ol>
+<h5 id="架构技术"><a href="#架构技术" class="headerlink" title="架构技术"></a>架构技术</h5><ol>
+<li>《人人都是架构师》分布式系统落地与瓶颈突破-已读-2017-8-31</li>
+<li>《大型网站系统与Java中间件实践》贯通分布式高并发高数据高访问量网站架构与实现-推荐-已读-2018-02-24</li>
+<li>《架构真经》互联网技术架构的设计原则-推荐-部分-2018-04-20</li>
+<li>《恰如其分的软件架构》-未读-2018-10-22</li>
+<li>《软件架构师的12项修炼》技术技能篇-未读-2018-11-11</li>
+<li>《可伸缩服务架构》框架与中间件-未读-2019-06-14</li>
+<li>《企业中台》未读-找不到了-2019-08-31</li>
+<li>《架构修炼之道》亿级网关、平台开放、分布式、微服务、容错等核心技术修炼实战-未读-2020-03-12</li>
+<li>《携程架构实践》-推荐-在读-2020-05-19</li>
+<li>《超大流量分布式系统架构解决方案》人人都是架构师2.0-差评-时隔3年，与第一版毫无差别-2020-05-01</li>
+</ol>
+<h5 id="Python技术"><a href="#Python技术" class="headerlink" title="Python技术"></a>Python技术</h5><ol>
+<li>《Head First Python》-已读-2017-11-02</li>
+<li>《Python机器学习实践指南》-未读-2018-04-09</li>
+<li>《精通Python爬虫框架Scrapy》-推荐-部分-2018-11-10</li>
+<li>《Selenium自动化测试基于Ptyhon语言》-推荐-部分-2018-11-11</li>
+<li>《Python爬虫开发与项目实战》-推荐-已读部分-2020-05-01</li>
+</ol>
+<h5 id="前端技术及移动端技术"><a href="#前端技术及移动端技术" class="headerlink" title="前端技术及移动端技术"></a>前端技术及移动端技术</h5><ol>
+<li>《JavaScript经典实例第二版》工具书-2017-8-31</li>
+<li>《Vue.js》前端开发快速入门与专业应用-已读-2018-11-11</li>
+<li>《微信小程序开发》图解案例教程-已读-2019-02-03</li>
+<li>《App架构师实践指南》-未读-2019-12-12</li>
+<li>《Flutter：从0到1构建大前端应用》-已读-2019-12-12</li>
+<li>《基于Swift的iOS App开发全景扫描》诗意SagePoet从诞生到上线-未读-2020-03-04</li>
+<li>《Node.js实战》使用Egg.js+Vue.js+Docker构建渐进式、可持续继承与交付应用-未读-2020-03-04</li>
+<li>《Angular高级编程》-推荐-部分-2020-03-12</li>
+<li>《Apache Cordova实战》-未读-2020-03-12</li>
+<li>《Lonic实战》基于AngularJS的移动混合应用开发-未读-2020-03-12</li>
+<li>《Angular企业级应用开发实战》-未读-2020-04-01</li>
+<li>《从零开始搭建前端监控平台》-推荐-在读-2020-05-19</li>
+</ol>
+<h5 id="运维技术"><a href="#运维技术" class="headerlink" title="运维技术"></a>运维技术</h5><ol>
+<li>《OpenStack》企业云平台架构与实践-未读-2017-8-31</li>
+<li>《Linux集群和自动化运维》-推荐-已读-2018-04-20</li>
+<li>《Kubernates in Action》-未读-2019-06-14</li>
+<li>《Linux就该这么学》-推荐-已读-2018</li>
+<li>《嵌入式Linux设计与应用》-老书-未读</li>
+</ol>
+<h5 id="数据库技术"><a href="#数据库技术" class="headerlink" title="数据库技术"></a>数据库技术</h5><ol>
+<li>《Redis实战》-推荐-已读-2018-02-24</li>
+<li>《MongoDB实战》-推荐-已读-2018-04-20</li>
+<li>《MongoDB应用设计模式》-未读-2020-03-04</li>
+<li>《MongoDB从入门到商业实战》-未读-2020-03-12</li>
+</ol>
+<h5 id="其他技术"><a href="#其他技术" class="headerlink" title="其他技术"></a>其他技术</h5><ol>
+<li>《开源硬件创客15个酷应用玩转树莓派》-已读-2018-02-24</li>
+<li>《零基础学中医》-推荐-已读-2018-07-17</li>
+<li>《深度学习》人工智能算法，机器学习奠基之作，AI圣经-未读-2018-10-22</li>
+<li>《系统架构设计师考试32小时通关》-未读-2018-11-10</li>
+<li>《程序员的数学》1+2+3 数学思维+概率统计+线性代数-推荐（囧）-部分-2018-11-11</li>
+<li>《树莓派开发实战》-未读-2019-02-03</li>
+<li>《Java机器学习》-未读-2019-02-03</li>
+<li>《Head First Ruby》-已读-2019-02-03</li>
+<li>《Go语言实战》-未读-2019-5-19</li>
+<li>《大话设计模式》-部分-2019-5-19</li>
+<li>《HTTP抓包实战》-未读-2019-5-19</li>
+<li>《实现领域驱动设计》DDD思想真正落地-未读-2019-06-14</li>
+<li>《Scratch 3.0》少儿游戏趣味编程-未读-2019-10-24</li>
+<li>《Java程序员面试宝典》-未读-2019-12-05</li>
+<li>《Go Web编程》-未读-2019-12-12</li>
+<li>《Spring Boot+Spring Cloud+Vue+Element项目实战》手把手教你开发权限管理系统-已读-2019-12-12</li>
+<li>《软件设计师考试32小时通关》-在读-2020-04-01</li>
+<li>《启示录》打造用户喜爱的产品-推荐产品及运营人员阅读-未读-2020-05-01</li>
+<li>《用户画像》方法论与工程化解决方案-推荐产品及运营人员阅读-未读-2020-05-01</li>
+<li>《C#程序设计》-老书-未读</li>
+<li>《C程序设计》第二版-老书-未读</li>
+<li>《Java编程思想》第一版-老书-已读</li>
+<li>《UML.JAVA程序员指南》-老书-已读</li>
+</ol>
+
             </div>
             <hr/>
 
@@ -634,7 +577,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://lucksbrother.github.io/2020/06/06/yun-yuan-sheng-shi-er-yao-su-yuan-ze/">https://lucksbrother.github.io/2020/06/06/yun-yuan-sheng-shi-er-yao-su-yuan-ze/</a>
+                    <a href="https://lucksbrother.github.io/books/index.html">https://lucksbrother.github.io/books/index.html</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -671,15 +614,7 @@
                 <div class="post-meta__tag-list" style="display: inline-block;">
                     
                         <div class="article-tag">
-                            
-                                <a href="/tags/云原生/">
-                                    <span class="chip bg-color">云原生</span>
-                                </a>
-                            
-                                <a href="/tags/十二要素原则/">
-                                    <span class="chip bg-color">十二要素原则</span>
-                                </a>
-                            
+                            <span class="chip bg-color">无标签</span>
                         </div>
                     
                 </div>
@@ -865,57 +800,42 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/06/11/shi-er-yao-su-feng-ge-pei-zhi/">
+                <a href="/books/index.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="十二要素风格配置">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="我的书单">
                         
-                        <span class="card-title">十二要素风格配置</span>
+                        <span class="card-title">我的书单</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            聊随着《云原生》的学习，我计划同步开启一项开源项目，来将所学实践到项目中去，先简单介绍一下CNAdmin，全称Cloud Native Admin，云原生后台管理系统，后端使用SpringBoot 2.3.0 ，并且尽可能少的加载其他依赖。
+                            以下书单以购买日期排序-按类型分组，同城可以加好友联系本人免费借阅（要求：30天内送还，保持书本整洁不做记号）以书会友。
+职业规划及习惯养成
+《内外兼修》程序员的成长之路-已读-2017-8-11
+《技巧》如何用一年时间获得十年的经验-已读
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-06-11
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-15
+                            </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/云原生/" class="post-category">
-                                    云原生
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Robin
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/云原生/">
-                        <span class="chip bg-color">云原生</span>
-                    </a>
-                    
-                    <a href="/tags/十二要素原则/">
-                        <span class="chip bg-color">十二要素原则</span>
-                    </a>
-                    
-                    <a href="/tags/配置/">
-                        <span class="chip bg-color">配置</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
@@ -923,52 +843,40 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2019/05/24/yi-qi-xue-fen-bu-shi-ren-wu/">
+                <a href="/books/index.html">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="一起学分布式任务（上）">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="我的书单">
                         
-                        <span class="card-title">一起学分布式任务（上）</span>
+                        <span class="card-title">我的书单</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            分布式任务经历在这说说之间碰到的一些问题，项目是由分布式dubbo组件开发，每个单独应用模块都多少带有定时任务的需求。一直想做一个公共的抽离业务的任务调度中心，也是缺少技术论证环节，遇到需求直接采用一些临时解决方案，其中不免遇到好多坑，好多
+                            以下书单以购买日期排序-按类型分组，同城可以加好友联系本人免费借阅（要求：30天内送还，保持书本整洁不做记号）以书会友。
+职业规划及习惯养成
+《内外兼修》程序员的成长之路-已读-2017-8-11
+《技巧》如何用一年时间获得十年的经验-已读
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2019-05-24
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-07-15
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/JAVA/" class="post-category">
-                                    JAVA
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            Robin
                             
                         </span>
                     </div>
                 </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/分布式/">
-                        <span class="chip bg-color">分布式</span>
-                    </a>
-                    
-                    <a href="/tags/定时任务/">
-                        <span class="chip bg-color">定时任务</span>
-                    </a>
-                    
-                </div>
+
                 
             </div>
         </div>
